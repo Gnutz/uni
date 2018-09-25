@@ -1,0 +1,24 @@
+{
+	"Person":
+	{
+		"PersonID": "",
+		"Navn":
+		{
+			"Fornavn":["", ""],
+			"Efternavn": ""
+			
+			
+		},
+		"Email":["", ""],
+		"Adresse":
+		[
+			{"Type": "", "Beboere":[], "Postnr": "", "By": "", "Land": ""}
+			{"Type": "", "Beboere":[], "Postnr": "", "By": "", "Land": ""}
+		]
+		"TelefonNr
+		[
+			{"Nummer": "", "Ejer": "", "Type": "", "Selskab": ""}
+			{"Nummer": "", "Ejer": "", "Type": "", "Selskab": ""}
+		]
+	}
+}

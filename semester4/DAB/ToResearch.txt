@@ -1,0 +1,18 @@
+Connectivitity
+UNKNOWN (antal typer)
+Participation
+Association vs Aggregation (OO)
+Aggregate value Object
+
+Composition, Association, Aggregation C#
+Scaffolding Model
+
+
+
+sPØRGSMÅL TIL UNDERVISER:
+-Entity i to bounded contexts samme primary keys?: Ved to instanser af en entity i to bounded contexts,
+hvor id er ens, er det vel kun set ud fra domænemodellen? I en database opretter vi vel kun en tabel af den
+Entity? - Hvordan synces de to primary keys ellers??
+
+-Aggregation vs Assosiation: Aggregassion er nok den relation jeg har mindst erfaring med. Jeg troede at B ikke nedlægges
+sammen med A var almindelig association. Hvad er forskellen?

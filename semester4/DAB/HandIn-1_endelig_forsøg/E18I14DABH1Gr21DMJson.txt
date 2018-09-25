@@ -1,0 +1,31 @@
+{
+  "person": {
+    "PersonID": {
+      "name": {
+        "Fornavn": [],
+        "Efternavn": ""
+      },
+      "Email": []
+    },
+    "Adresse": [],
+    "TelefonNr": [],
+    "Noter": []
+  },
+  "Adresse": {
+    "AdresseID": "",
+    "Type": "",
+    "Vejnavn": "",
+    "Vejnummer": "",
+    "By": "",
+    "Land": ""
+  },
+  "By": {
+    "By": "",
+    "PostNr": "",
+    "Land": ""
+  },
+  "Land": {
+    "Land": "",
+    "Landekode": ""
+  }
+}
