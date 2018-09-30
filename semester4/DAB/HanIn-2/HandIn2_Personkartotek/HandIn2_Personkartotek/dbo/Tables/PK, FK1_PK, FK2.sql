@@ -1,0 +1,1 @@
+﻿CREATE INDEX [PK, FK1?PK, FK2] ON  [Alternativ Adresse] ([PersonID?AdresseID]);
