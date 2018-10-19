@@ -1,0 +1,105 @@
+{
+
+  "PersonId": 1, 
+
+  "FirstName": "First name",
+
+  "MiddleName": "Middle Name",
+
+  "Surname": "Surname",
+
+  "Primary Address": {
+    "AddressID":  1, 
+    "Street": "Street",
+    "HouseNumber": "Number",
+    "City": {
+      "CityID":  1,
+      "CityName": "City name",
+      "ZipCode": "Zip code",
+      "Country": {
+        "CountryID":  1, 
+        "CountryName": "Country name",
+        "CountryCode": "Country Code"
+      }
+    }
+  },
+
+  "Alternative Address": [
+    {
+      "Address": {
+        "AddressID": 1,
+        "Street": "Street",
+        "HouseNumber": "Number",
+        "City": {
+          "CityID": 1,
+          "CityName": "City name",
+          "ZipCode": "Zip code",
+          "Country": {
+            "CountryID": 1,
+            "CountryName": "Country name",
+            "CountryCode": "Country Code"
+          }
+        }
+      },
+      "Type": "type"
+    },
+
+    {
+      "Address": {
+        "AddressID": 1,
+        "Street": "Street",
+        "HouseNumber": "Number",
+        "City": {
+          "CityID": 1,
+          "CityName": "City name",
+          "ZipCode": "Zip code",
+          "Country": {
+            "CountryID": 1,
+            "CountryName": "Country name",
+            "CountryCode": "Country Code"
+          }
+        }
+      },
+      "Type": "type"
+    }
+  ],
+
+      "EmaiAddress": [
+
+        { "EmailAddressID":  1, "EmailAddress": "email@emai.com" },
+        { "EmailAddressID":  1,"EmailAddress": "email2@emai.com" }
+      ],
+
+      "Note": [
+
+        { "NoteID":  1, "Note": "Note1" },
+        { "NoteID":  2, "Note": "Note2" }
+      ],
+
+      "PhoneNumber": [
+        {
+          "PhoneNumberID":  1, 
+          "PhoneNumber": "+45 00 00 00 00",
+          "type": "type",
+
+          "PhoneCompany": {
+            "PhoneCompanyID":  1, 
+            "CompanyName": "Company name"
+          }
+
+        },
+
+        {
+          "PhoneNumberID":  1, 
+          "PhoneNumber": "+45 00 00 00 00",
+          "type": "type",
+
+          "PhoneCompany": {
+            "PhoneCompanyID": 1,
+            "CompanyName": "Company name"
+          }
+
+        }
+      ]
+
+    }

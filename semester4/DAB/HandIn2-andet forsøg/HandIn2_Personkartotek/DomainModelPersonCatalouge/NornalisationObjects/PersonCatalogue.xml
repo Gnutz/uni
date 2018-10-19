@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<root>
+  <PersonId>1</PersonId>
+  <FirstName>First name</FirstName>
+  <MiddleName>Middle Name</MiddleName>
+  <Surname>Surname</Surname>
+  <EmaiAddress>
+    <EmailAddressID>1</EmailAddressID>
+    <EmailAddress>email@emai.com</EmailAddress>
+  </EmaiAddress>
+  <EmaiAddress>
+    <EmailAddressID>1</EmailAddressID>
+    <EmailAddress>email2@emai.com</EmailAddress>
+  </EmaiAddress>
+  <Note>
+    <NoteID>1</NoteID>
+    <Note>Note1</Note>
+  </Note>
+  <Note>
+    <NoteID>2</NoteID>
+    <Note>Note2</Note>
+  </Note>
+  <PhoneNumber>
+    <PhoneNumberID>1</PhoneNumberID>
+    <PhoneNumber>+45 00 00 00 00</PhoneNumber>
+    <type>type</type>
+    <PhoneCompany>
+      <PhoneCompanyID>1</PhoneCompanyID>
+      <CompanyName>Company name</CompanyName>
+    </PhoneCompany>
+  </PhoneNumber>
+  <PhoneNumber>
+    <PhoneNumberID>1</PhoneNumberID>
+    <PhoneNumber>+45 00 00 00 00</PhoneNumber>
+    <type>type</type>
+    <PhoneCompany>
+      <PhoneCompanyID>1</PhoneCompanyID>
+      <CompanyName>Company name</CompanyName>
+    </PhoneCompany>
+  </PhoneNumber>
+  <Primary_Address>
+    <AddressID>1</AddressID>
+    <Street>Street</Street>
+    <HouseNumber>Number</HouseNumber>
+    <City>
+      <CityID>1</CityID>
+      <CityName>City name</CityName>
+      <ZipCode>Zip code</ZipCode>
+      <Country>
+        <CountryID>1</CountryID>
+        <CountryName>Country name</CountryName>
+        <CountryCode>Country Code</CountryCode>
+      </Country>
+    </City>
+  </Primary_Address>
+  <Alternative_Address>
+    <Address>
+      <AddressID>1</AddressID>
+      <Street>Street</Street>
+      <HouseNumber>Number</HouseNumber>
+      <City>
+        <CityID>1</CityID>
+        <CityName>City name</CityName>
+        <ZipCode>Zip code</ZipCode>
+        <Country>
+          <CountryID>1</CountryID>
+          <CountryName>Country name</CountryName>
+          <CountryCode>Country Code</CountryCode>
+        </Country>
+      </City>
+    </Address>
+    <Type>type</Type>
+  </Alternative_Address>
+  <Alternative_Address>
+    <Address>
+      <AddressID>1</AddressID>
+      <Street>Street</Street>
+      <HouseNumber>Number</HouseNumber>
+      <City>
+        <CityID>1</CityID>
+        <CityName>City name</CityName>
+        <ZipCode>Zip code</ZipCode>
+        <Country>
+          <CountryID>1</CountryID>
+          <CountryName>Country name</CountryName>
+          <CountryCode>Country Code</CountryCode>
+        </Country>
+      </City>
+    </Address>
+    <Type>type</Type>
+  </Alternative_Address>
+</root>

@@ -1,0 +1,19 @@
+Regler og krav:  (Tilføj til ERD-diagram)
+
+-	En person skal have et fornavn og efternavn samt kan have et mellemnavn.
+o	En Person vil kun have en af hver af disse, ønskes flere f.eks. mellemnavne findes de i samme string værdi f.eks. ”mellemnavn1 mellemnavn2”.
+-	En person kan have flere emailadresser.
+o	Samtlige emailadresser i systemet skal være unikke, betydende af flere personer kan dele den samme adresse i dette system.
+-	En person kan have flere telefonnumre registreret.
+o	(Et telefonnummer skal være knyttet til en person)
+o	Et Telefonnummer skal have et nummer (tekstreng for mulighed for at angive landekode for opkald f.eks. ”+45 00 00 00 00” for et nummer i DK.
+?	
+o	Et Telefonnummer kan have et en type f.eks privat, arbejde eller lignende.
+o	Et Telefonnummer kan være registreret til til et teleselskab.
+?	(Et teleselskab skal være knyttet til mindst et telefonnummer)
+-	En person kan have flere noter knyttet til sig
+o	(En note skal være knyttet til en person)
+-	En person skal have en primær adresse 
+-	En person kan have alternative adresser
+o	Adresser skal have et vejnavn husnummer, by, postnummer og kan have et land
+o	Alternative Adresser skal desuden have en type.

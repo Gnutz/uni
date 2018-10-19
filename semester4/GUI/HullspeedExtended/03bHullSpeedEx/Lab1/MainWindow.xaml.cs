@@ -19,7 +19,7 @@ namespace Lab1
          InitializeComponent();
          boat = new Sailboat();
          Loaded += new RoutedEventHandler(MainWindow_Loaded);
-         //PreviewKeyDown += new KeyEventHandler(MainWindow_PreviewKeyDown);
+         PreviewKeyDown += new KeyEventHandler(MainWindow_PreviewKeyDown);
       }
 
       void MainWindow_PreviewKeyDown(object sender, KeyEventArgs e)

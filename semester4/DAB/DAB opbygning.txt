@@ -1,0 +1,7 @@
+CRUD
+
+select from ID
+select all
+update
+delete
+insert

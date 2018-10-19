@@ -1,0 +1,31 @@
+<root>
+<Adresse>
+  <AdresseID/>
+  <By/>
+  <Land/>
+  <Type/>
+  <Vejnavn/>
+  <Vejnummer/>
+</Adresse>
+<By>
+  <By/>
+  <Land/>
+  <PostNr/>
+</By>
+<Land>
+  <Land/>
+  <Landekode/>
+</Land>
+<person>
+  <Adresse/>
+  <Noter/>
+  <PersonID>
+  <Email/>
+  <name>
+    <Efternavn/>
+    <Fornavn/>
+  </name>
+  </PersonID>
+  <TelefonNr/>
+</person>
+</root>
