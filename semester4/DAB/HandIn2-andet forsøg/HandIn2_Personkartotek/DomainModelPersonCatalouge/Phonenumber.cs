@@ -17,7 +17,7 @@ namespace DomainModelPersonCatalogue
            PhoneNumberID = 0;
            PhoneNumber = "";
            type = "";
-           PhoneCompany = null;
+           PhoneCompany = new PhoneCompany();
         }
 
         public void print()

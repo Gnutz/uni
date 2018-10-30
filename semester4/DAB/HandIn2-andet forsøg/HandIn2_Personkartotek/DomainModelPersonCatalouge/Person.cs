@@ -24,9 +24,10 @@ namespace DomainModelPersonCatalogue
             MiddleName = "";
             Surname = "";
             PrimaryAddress = null;
-            AlternativeAddresses = null;
-            EmailAddresses = null;
-            PhoneNumbers = null;
+            AlternativeAddresses = new List<AlternativeAddress>();
+            EmailAddresses = new List<EmailAddress>();
+            PhoneNumbers = new List<Phonenumber>();
+            Notes = new List<Note>();
         }
 
         public void print()

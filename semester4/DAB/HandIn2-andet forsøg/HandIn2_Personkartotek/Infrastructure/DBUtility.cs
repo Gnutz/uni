@@ -42,11 +42,12 @@ namespace Infrastructure
             {
                 //var con = new SqlConnection(@"Data Source=(localdb)\ProjectsV13;Initial Catalog=CraftManDB;Integrated Security=True");
                 var con = new SqlConnection(
-                    @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=PersonCatalogueDB;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True");
+                    @"Data Source=st-i4dab.uni.au.dk;Initial Catalog=E18I4DABau569735;Persist Security Info=False;User ID=E18I4DABau569735;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True");
                 con.Open();
                 return con;
             }
         }
+
 
         //--------------- COUNTRY CRUD OPS-----------------------------------------
         public void AddCountry(ref Country country)
@@ -238,8 +239,103 @@ namespace Infrastructure
 
         }
 
+        //--------------- AlternativeAddress CRUD OPS-----------------------------------------
+
+        
+        public void AddAltAddress(ref AlternativeAddress altAddress)
+        {
+            
+            string insertStringParam = @"INSERT INTO [Alternative_Address] (PersonID, AddressID, type)
+                                                    OUTPUT INSERTED.AddressID
+                                                    OUTPUT INSERTED.PersonID
+                                                    VALUES (@PersonID, @AddressID, @type)";
+
+            using (SqlCommand cmd = new SqlCommand(insertStringParam, OpenConnection))
+            {
+
+                cmd.Parameters.AddWithValue("@type", altAddress.Type);
+                cmd.Parameters.AddWithValue("@PersonID", altAddress.Person.PersonId);
+                cmd.Parameters.AddWithValue("@AddressID", altAddress.AddressID);
+            }
+        }
+
+        public List<AlternativeAddress> GetAllOfAPersonsAltAddresses(ref Person person)
+        {
+
+            string selectString =
+                @"SELECT Address.AddressID, Address.Street, Address.HouseNumber, Address.CityID, Alternative_Address.type, 
+                         Alternative_Address.PersonID 
+             FROM   Address INNER JOIN
+             Alternative_Address ON Address.AddressID = Alternative_Address.AddressID LEFT OUTER JOIN
+             Person ON Address.AddressID = Person.AddressID AND Alternative_Address.PersonID = Person.PersonID
+             WHERE (Alternative_Address.PersonID = @PersonID)";
+
+            using (var cmd = new SqlCommand(selectString, OpenConnection))
+            {
+                SqlDataReader rdr = null;
+                cmd.Parameters.AddWithValue("@PersonID", person.PersonId);
+                rdr = cmd.ExecuteReader();
+
+                List<AlternativeAddress> _alternativeAddresses = new List<AlternativeAddress>();
+                AlternativeAddress altAddress = null;
+                while (rdr.Read())
+                {
+                    altAddress = new AlternativeAddress();
+                    Person person_ = new Person();
+                    altAddress.Person = person_;
+                    altAddress.Person.PersonId = (long)rdr["Alternative_Address.PersonID "];
+                    altAddress.AddressID = (long)rdr["Address.AddressID"];
+                    altAddress.Street = (string)rdr["Address.Street"];
+                    altAddress.HouseNumber = (string)rdr["Address.HouseNumber"];
+                    altAddress.City.CityID = (long)rdr["Address.CityID"];
+                    altAddress.Type = (string)rdr["Alternative_Address.type"];
+
+                    _alternativeAddresses.Add(altAddress);
+                }
+
+                return _alternativeAddresses;
+
+            }
+
+        }
+
+        
+        public void DeleteAltAddress(ref AlternativeAddress altAddress)
+        {
+            string deleteString = @"DELETE FROM Alternative_Address	WHERE (Alternative_Address.PersonID = @PersonID AND 
+                                                                           Alternative_Address.AddressID = @AddressID)";
+            using (SqlCommand cmd = new SqlCommand(deleteString, OpenConnection))
+            {
+                cmd.Parameters.AddWithValue("@AddressID", altAddress.AddressID);
+                cmd.Parameters.AddWithValue("@PersonID", altAddress.Person.PersonId);
+
+                var id = (long)cmd.ExecuteNonQuery();
+                altAddress = null;
+            }
+        }
+
+       
+        public void UpdateAltAddress(ref AlternativeAddress altAddress)
+        {
+            string updateString =
+                @"UPDATE Alternative_Address                 
+                        SET AddressID= @AddressID, type = @type, 
+                        WHERE Alternative_Address.PersonID @PersonID";
+
+            using (SqlCommand cmd = new SqlCommand(updateString, OpenConnection))
+            {
+                cmd.Parameters.AddWithValue("@PersonID", altAddress.Person.PersonId);
+                cmd.Parameters.AddWithValue("@type", altAddress.Type);
+
+                var id = (int)cmd.ExecuteNonQuery();
+            }
+
+
+        }
+
         //--------------- Address CRUD OPS-----------------------------------------
 
+        
         public void AddAddress(ref Address address)
         {
 
@@ -273,17 +369,18 @@ namespace Infrastructure
 
                     address.AddressID = (long)rdr["AddressID"];
                     address.Street = (string)rdr["Street"];
-                   address.HouseNumber = (string)rdr["HouseNumber"];
+                    address.HouseNumber = (string)rdr["HouseNumber"];
                     currentCity.CityID = (long)rdr["CityID"];
 
 
                 }
 
                 GetCityById(ref currentCity);
-               address.City = currentCity;
+                address.City = currentCity;
             }
         }
 
+        
         public void DeleteAddress(ref Address address)
         {
             string deleteString = @"DELETE FROM Address WHERE (AddressID = @AddressID)";
@@ -296,6 +393,7 @@ namespace Infrastructure
             }
         }
 
+        
         public void UpdateAddress(ref Address address)
         {
             string updateString =
@@ -315,28 +413,9 @@ namespace Infrastructure
 
         }
 
+        //--------------- Person CRUD OPS-----------------------------------------
 
-        //--------------- Address CRUD OPS-----------------------------------------
-
-        public void AddAlternativeAddress(ref AlternativeAddress aaddress)
-        {
-
-
-            string insertStringParam = @"INSERT INTO [Alternative] (type, PersonID, AddressID)
-                                                    OUTPUT INSERTED.pk_Alternative_Address 
-                                                    VALUES (@type, @PersonID, @AddressID)";
-
-            using (SqlCommand cmd = new SqlCommand(insertStringParam, OpenConnection))
-            {
-
-                cmd.Parameters.AddWithValue("@type", aaddress.Type);
-                cmd.Parameters.AddWithValue("@PersonID", aaddress.Person.PersonId);
-                cmd.Parameters.AddWithValue("@AddressID", aaddress.Address.AddressID);
-             }
-        }
-
-        //--------------- Address CRUD OPS-----------------------------------------
-
+        
         public void AddPerson(ref Person person)
         {
 
@@ -355,7 +434,8 @@ namespace Infrastructure
                 person.PersonId = (long)cmd.ExecuteScalar();
             }
         }
-
+        
+        
         public void GetPersonById(ref Person person)
         {
             string selectString = @"SELECT * FROM Person WHERE (PersonId = @PersonId)";
@@ -381,7 +461,8 @@ namespace Infrastructure
                 person.PrimaryAddress = currentAddress;
             }
         }
-
+        
+        
         public void DeletePerson(ref Person person)
         {
             string deleteString = @"DELETE FROM Person WHERE (PersonId = @PersonId)";
@@ -394,19 +475,21 @@ namespace Infrastructure
             }
         }
 
+
+        
         public void UpdatePerson(ref Person person)
         {
             string updateString =
                 @"UPDATE Person                 
-                        SET FirstName = @FirstName, MiddleName = @MiddleName, SurName = @Surname,
-                        WHERE PersonId = @PersonId";
+                        SET FirstName = @FirstName, MiddleName = @MiddleName, SurName = @Surname
+                        WHERE (PersonId = @PersonId)";
 
             using (SqlCommand cmd = new SqlCommand(updateString, OpenConnection))
             {
                 cmd.Parameters.AddWithValue("@PersonId", person.PersonId);
                 cmd.Parameters.AddWithValue("@FirstName", person.FirstName);
                 cmd.Parameters.AddWithValue("@MiddleName", person.MiddleName);
-                cmd.Parameters.AddWithValue("@Surnmame", person.Surname);
+                cmd.Parameters.AddWithValue("@Surname", person.Surname);
 
 
                 var id = (int)cmd.ExecuteNonQuery();
@@ -417,6 +500,7 @@ namespace Infrastructure
 
 
         //--------------- PHONECOMPANY CRUD OPS-----------------------------------------
+        
         public void AddPhoneCompany(ref PhoneCompany company)
         {
             string insertStringParam = @"INSERT INTO [PhoneCompany] (CompanyName)
@@ -431,8 +515,9 @@ namespace Infrastructure
             }
 
         }
-
-        public void GetPhoneCompanyId(ref PhoneCompany company)
+        
+        
+        public void GetPhoneCompanyById(ref PhoneCompany company)
         {
             string selectString = @"SELECT * FROM PhoneCompany WHERE (PhnCompanyID = @PhnCompanyID)";
             using (var cmd = new SqlCommand(selectString, OpenConnection))
@@ -447,7 +532,8 @@ namespace Infrastructure
                 }
             }
         }
-
+        
+        
         public void GetPhoneCompanyByName(ref PhoneCompany company)
         {
             string sqlcmd = @"SELECT  TOP 1 * FROM Company WHERE (CompanyName = @cname)";
@@ -466,7 +552,8 @@ namespace Infrastructure
                 }
             }
         }
-
+        
+        
         public void DeletePhoneCompany(ref PhoneCompany company)
         {
             string deleteString = @"DELETE FROM Company WHERE (PhnCompanyID = @PhnCompanyID)";
@@ -479,6 +566,7 @@ namespace Infrastructure
             }
         }
 
+        
         public void UpdatePhoneCompany(ref PhoneCompany company)
         {
             string updateString =
@@ -498,6 +586,7 @@ namespace Infrastructure
 
         //--------------- Phonenumber CRUD OPS-----------------------------------------
 
+        
         public void AddPhonenumber(ref Phonenumber number)
         {
 
@@ -519,6 +608,11 @@ namespace Infrastructure
             }
         }
 
+        // All Get methods for phonenumbers are going to set the PhoneCompany ref to the right project.
+        // The Person reference, will only consist of a default person object with a correct personID.
+
+        
+
         public void GetPhonenumberById(ref Phonenumber number)
         {
             string selectString = @"SELECT  FROM PhoneNumber WHERE (PhnNumberID = @PhnNumberID)";
@@ -532,54 +626,21 @@ namespace Infrastructure
                 if (rdr.Read())
                 {
 
-                    number.PhoneNumberID = (long)rdr["PhnNumberID"];
-                    number.PhoneNumber = (string)rdr["PhoneNumber"];
-                    number.type = (string)rdr["type"];
-                    currentPerson.PersonId = (long)rdr["PersonID"];
-                    currentPhoneCompany.PhoneCompanyID = (long)rdr["PhnCompanyID"];
-
-
-
+                    number.PhoneNumberID = (long) rdr["PhnNumberID"];
+                    number.PhoneNumber = (string) rdr["PhoneNumber"];
+                    number.type = (string) rdr["type"];
+                    currentPerson.PersonId = (long) rdr["PersonID"];
+                    currentPhoneCompany.PhoneCompanyID = (long) rdr["PhnCompanyID"];
                 }
 
-                GetPersonById(ref currentPerson);
-                GetPhoneCompanyId(ref currentPhoneCompany);
+                GetPhoneCompanyById(ref currentPhoneCompany);
                 number.Person = currentPerson;
                 number.PhoneCompany = currentPhoneCompany;
             }
         }
 
-        /*
-        public List<Phonenumber> GetAllOfAPersonsPhonenumbers(ref Person person)
-        {
-            string selectPhoneNumbersString = @"SELECT PhoneNumber.PhnNumberID, PhoneNumber.PhoneNumber, PhoneNumber.type, PhoneCompany.PhnCompanyID,
-                                              PhoneCompany.CompanyName
-                                                  FROM Person INNER JOIN PhoneNumber ON Person.PersonID = PhoneNumber.PersonID
-                                                  INNER JOIN PhoneCompany ON PhoneNumber.PhnCompanyID = PhoneCompany.PhnCompanyID
-                                                  WHERE (PersonID = @PersonId)";
 
-            using (var cmd = new SqlCommand(selectPhoneNumbersString, OpenConnection))
-            {
-                cmd.Parameters.AddWithValue("@PersonID", person.PersonId);
-                SqlDataReader rdr = null;
-                rdr = cmd.ExecuteReader();
-                var prsncCunt = 0;
-                var phnNoCount = 0;
-                var phnCoCount = 0;
-                long personID = 0;
-                long phnNoID = 0;
-                Person prsn = new Person();
-                Phonenumber phonenum = null;
-                prsn.PhoneNumbers = new List<Phonenumber> { };
-                while (rdr.Read())
-                {
-                   
-
-                    }
-                }
-            }
-
-        } */
+        
 
         public void GetPhonnumberByNumber(ref Phonenumber number)
         {
@@ -593,7 +654,8 @@ namespace Infrastructure
                 if (rdr.Read())
                 {
 
-                    number.PhoneNumberID = (long)rdr["PhnNumberID"];
+                    number.PhoneNumberID = (long) rdr["PhnNumberID"];
+
                     number.PhoneNumber = (string)rdr["PhoneNumber"];
                     number.type = (string)rdr["type"];
                     currentPerson.PersonId = (long)rdr["PersonID"];
@@ -603,16 +665,67 @@ namespace Infrastructure
 
                 }
 
-                GetPersonById(ref currentPerson);
-                GetPhoneCompanyId(ref currentPhoneCompany);
+                GetPhoneCompanyById(ref currentPhoneCompany);
                 number.Person = currentPerson;
                 number.PhoneCompany = currentPhoneCompany;
-
-
             }   
 
         }
 
+
+        
+        public List<Phonenumber> GetAllOfAPersonsPhonenumbers(ref Person person)
+        {
+
+            string selectPhonenumbersString =
+                @"SELECT PhoneNumber.PhnNumberID, PhoneNumber.PhoneNumber, PhoneNumber.type, PhoneNumber.PhnCompanyID, PhoneNumber.PersonID
+                         PhoneCompany.CompanyName
+
+                    FROM   Person INNER JOIN
+                           PhoneNumber ON Person.PersonID = PhoneNumber.PersonID LEFT OUTER JOIN
+                           PhoneCompany ON PhoneNumber.PhnCompanyID = PhoneCompany.PhnCompanyID
+                    WHERE (PhoneNumber.PersonID = @PersonID)";
+
+            using (var cmd = new SqlCommand(selectPhonenumbersString, OpenConnection))
+            {
+                SqlDataReader rdr = null;
+                cmd.Parameters.AddWithValue("@PersonID", person.PersonId);
+                rdr = cmd.ExecuteReader();
+
+                List<Phonenumber> numbers = new List<Phonenumber>();
+                Phonenumber number = null;
+                while (rdr.Read())
+                {
+                    number = new Phonenumber();
+                    Person person_ = new Person();
+                    number.Person = person_;
+                    number.Person.PersonId = (long) rdr["PhoneNumber.PersonID"];
+                    number.PhoneNumberID = (long) rdr["PhoneNumber.PhnNumberID"];
+                    number.PhoneNumber = (string) rdr["PhoneNumber.PhoneNumber"];
+                    number.type = (string) rdr["PhoneNumber.type"];
+                    if (!rdr.IsDBNull(4))
+                    {
+                        PhoneCompany company = new PhoneCompany();
+                        number.PhoneCompany = company;
+                        company.PhoneCompanyID = (long) rdr["PhoneNumber.PhnCompanyID"];
+                        company.CompanyName = (string) rdr["PhoneCompany.CompanyName"];
+                        
+                    }
+                    else
+                    {
+                        number.PhoneCompany = null;
+                    }
+
+                    numbers.Add(number);
+                }
+
+                return numbers;
+
+            }
+
+        }
+
+        
         public void DeletePhonenumber(ref Phonenumber number)
         {
             string deleteString = @"DELETE FROM PhoneNumber WHERE (PhnNumberID = @PhnNumberID)";
@@ -625,6 +738,7 @@ namespace Infrastructure
             }
         }
 
+        
         public void UpdatePhoneNumber(ref Phonenumber number)
         {
             string updateString =
@@ -643,6 +757,246 @@ namespace Infrastructure
 
         }
 
-    }
+        //--------------- EmailAddress CRUD OPS-----------------------------------------
 
+
+        public void AddEmailAddress(ref EmailAddress email)
+        {
+
+
+            string insertStringParam = @"INSERT INTO [EmailAddress] (Email, PersonID)
+                                                    OUTPUT INSERTED.EmailID  
+                                                    VALUES (@Email, @PersonID)";
+
+            using (SqlCommand cmd = new SqlCommand(insertStringParam, OpenConnection))
+            {
+
+                cmd.Parameters.AddWithValue("@Email", email.Email);
+                cmd.Parameters.AddWithValue("@PersonID", email.Person.PersonId);
+                email.EmailAddressID = (long)cmd.ExecuteScalar();
+            }
+        }
+
+
+        public void GetEmailAddressById(ref EmailAddress email)
+        {
+            string selectString = @"SELECT * FROM EmailAddress WHERE (EmailID = @EmailID)";
+            using (var cmd = new SqlCommand(selectString, OpenConnection))
+            {
+                cmd.Parameters.AddWithValue("@EmailID", email.EmailAddressID);
+                SqlDataReader rdr = null;
+                rdr = cmd.ExecuteReader();
+
+
+                if (rdr.Read())
+                {
+
+                    email.EmailAddressID = (long)rdr["EmailID"];
+                    email.Email = (string)rdr["Email"];
+                    email.Person.PersonId = (long)rdr["PersonID"];
+
+
+                }
+            }
+        }
+        
+        public void GetEmailAddressByAddress(ref EmailAddress email)
+        {
+            string selectString = @"SELECT  TOP 1 * FROM EmailAddress WHERE (Email = @email)";
+            using (var cmd = new SqlCommand(selectString, OpenConnection))
+            {
+                cmd.Parameters.AddWithValue("@email", email.Email);
+                SqlDataReader rdr = null;
+                rdr = cmd.ExecuteReader();
+
+                if (rdr.Read())
+                {
+
+                    email.EmailAddressID = (long)rdr["EmailID"];
+                    email.Email = (string)rdr["Email"];
+                    email.Person.PersonId = (long)rdr["PersonID"];
+
+
+                }
+            }
+        }
+
+        
+        public void DeleteEmailAddress(ref EmailAddress email)
+        {
+            string deleteString = @"DELETE FROM EmailAddress WHERE (EmailID = @EmailID)";
+            using (SqlCommand cmd = new SqlCommand(deleteString, OpenConnection))
+            {
+                cmd.Parameters.AddWithValue("@EmailID", email.EmailAddressID);
+
+                var id = (long)cmd.ExecuteNonQuery();
+                email = null;
+            }
+        }
+
+        
+        public void UpdateEmailAddress(ref EmailAddress email)
+        {
+            string updateString =
+                @"UPDATE EmailAddress                 
+                        SET Email= @Email,  
+                        WHERE EmailID = @EmailID";
+
+            using (SqlCommand cmd = new SqlCommand(updateString, OpenConnection))
+            {
+                cmd.Parameters.AddWithValue("@Email", email.Email);
+                cmd.Parameters.AddWithValue("@EmailID", email.EmailAddressID);
+
+                var id = (long)cmd.ExecuteNonQuery();
+            }
+
+        }
+
+        
+        public List<EmailAddress> GetAPersonsEmailList(ref Person person)
+        {
+
+            string selectString =
+                @"SELECT EmailAddress.EmailID, EmailAddress.Email, EmailAddress.PersonID
+                        FROM   EmailAddress INNER JOIN
+                        Person ON EmailAddress.PersonID = Person.PersonID
+                  WHERE (EmailAddress.PersonID = @PersonID)";
+
+            using (var cmd = new SqlCommand(selectString, OpenConnection))
+            {
+                SqlDataReader rdr = null;
+                cmd.Parameters.AddWithValue("@PersonID", person.PersonId);
+                rdr = cmd.ExecuteReader();
+
+                List<EmailAddress> emailsAddresses = new List<EmailAddress>();
+                EmailAddress email = null;
+                while (rdr.Read())
+                {
+                    email = new EmailAddress();
+                    email.Person.PersonId = (long)rdr["EmailAddress.PersonID"];
+                    email.EmailAddressID= (long)rdr["EmailAddress.EmailID"];
+                    email.Email = (string) rdr["EmailAddress.Email"];
+
+                    emailsAddresses.Add(email);
+                }
+
+                return emailsAddresses;
+
+            }
+
+        }
+
+
+        //--------------- Notes CRUD OPS-----------------------------------------
+
+
+        
+        public void AddNote(ref Note note)
+        {
+
+
+            string insertStringParam = @"INSERT INTO [Note] (NoteText, PersonID)
+                                                    OUTPUT INSERTED.EmailID  
+                                                    VALUES (@NoteText, @PersonID)";
+
+            using (SqlCommand cmd = new SqlCommand(insertStringParam, OpenConnection))
+            {
+
+                cmd.Parameters.AddWithValue("@NoteText", note.NoteText);
+                cmd.Parameters.AddWithValue("@PersonID", note.Person.PersonId);
+                note.NoteID = (long)cmd.ExecuteScalar();
+            }
+        }
+
+        
+        public void GeNoteById(ref Note note)
+        {
+            string selectString = @"SELECT * FROM Note WHERE (NoteID = @NoteID)";
+            using (var cmd = new SqlCommand(selectString, OpenConnection))
+            {
+                cmd.Parameters.AddWithValue("@NoteID", note.NoteID);
+                SqlDataReader rdr = null;
+                rdr = cmd.ExecuteReader();
+
+
+                if (rdr.Read())
+                {
+
+                    note.NoteID = (long) rdr["NoteID"];
+                    note.NoteText = (string) rdr["NoteText"];
+                    note.Person.PersonId = (long) rdr["PersonID"];
+
+
+                }
+            }
+        }
+
+       
+        public void DeleteNote(ref Note note)
+        {
+            string deleteString = @"DELETE FROM Note WHERE (NoteID = @NoteID)";
+            using (SqlCommand cmd = new SqlCommand(deleteString, OpenConnection))
+            {
+                cmd.Parameters.AddWithValue("@NoteID", note.NoteID);
+
+                var id = (long)cmd.ExecuteNonQuery();
+                note = null;
+            }
+        }
+
+       
+        public void UpdateNote(ref Note note)
+        {
+            string updateString =
+                @"UPDATE Note                 
+                        SET NoteText= @NoteText  
+                        WHERE EmailID = @NoteID";
+
+            using (SqlCommand cmd = new SqlCommand(updateString, OpenConnection))
+            {
+                cmd.Parameters.AddWithValue("@NoteText", note.NoteText);
+                cmd.Parameters.AddWithValue("@NoteID", note.NoteID);
+
+                var id = (long)cmd.ExecuteNonQuery();
+            }
+
+        }
+
+        
+        public List<Note> GetAllOfAPersonsNotes(ref Person person)
+        {
+
+            string selectString =
+                @"SELECT Note.NoteID, Note.NoteText, Note.PersonID
+                        FROM   Note INNER JOIN
+                        Person ON Note.PersonID = Person.PersonID
+                  WHERE (Note.PersonID = @PersonID)";
+
+            using (var cmd = new SqlCommand(selectString, OpenConnection))
+            {
+                SqlDataReader rdr = null;
+                cmd.Parameters.AddWithValue("@PersonID", person.PersonId);
+                rdr = cmd.ExecuteReader();
+
+                List<Note> notes = new List<Note>();
+                Note note  = null;
+                while (rdr.Read())
+                {
+                    note = new Note();
+                    note.Person.PersonId = (long)rdr["Note.PersonID"];
+                    note.NoteID= (long)rdr["Note.NoteID"];
+                    note.NoteText = (string) rdr["Note.NoteText"];
+
+                    notes.Add(note);
+                }
+
+                return notes;
+
+            }
+
+        }
+
+
+
+    }
 }

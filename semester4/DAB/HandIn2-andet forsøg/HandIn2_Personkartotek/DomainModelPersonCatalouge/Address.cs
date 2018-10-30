@@ -16,7 +16,7 @@ namespace DomainModelPersonCatalogue
            AddressID = 0;
            Street = "";
            HouseNumber = "";
-           City = null;
+           City = new City();
         }
 
         public void print()

@@ -9,10 +9,13 @@ namespace DomainModelPersonCatalogue
         public virtual long NoteID { get; set; }
         public virtual string NoteText { get; set; }
 
+        public virtual Person Person { get; set; }
+
         public Note()
         {
             NoteID = 0;
             NoteText = "";
+            Person = new Person();
         }
 
         public void print()
@@ -21,6 +24,8 @@ namespace DomainModelPersonCatalogue
             Console.WriteLine("--------------------------");
             Console.WriteLine($"NoteID: {NoteID}");
             Console.WriteLine($"NoteText: {NoteText}");
+            if (Person != null)
+                Console.WriteLine($"PersonID: {Person.PersonId}");
             Console.WriteLine("--------------------------");
 
         }

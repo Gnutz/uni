@@ -4,24 +4,24 @@ using System.Text;
 
 namespace DomainModelPersonCatalogue
 {
-    public class AlternativeAddress
+    public class AlternativeAddress : Address
     {
-        public virtual Address Address { get; set; }
 
-        public virtual Person Person { get; set; }
+        public virtual  Person Person { get; set; }
+       
         public virtual string Type { get; set; }
 
-        public AlternativeAddress()
+        public AlternativeAddress() : base()
         {
-           Address = null;
-           Type = "";
+            Type = "";
+            Person = new Person();
         }
 
         public void print()
         {
             Console.WriteLine("    AlternativeAddress");
             Console.WriteLine("--------------------------");
-            Address.print();
+            base.print();
             Console.WriteLine($"Type: {Type}");
             Console.WriteLine("--------------------------");
 

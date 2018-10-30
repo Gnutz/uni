@@ -16,7 +16,7 @@ namespace DomainModelPersonCatalogue
             CityID = 0;
             CityName = "";
             ZipCode = "";
-            Country = null;
+            Country = new Country();
         }
 
         public void print()
