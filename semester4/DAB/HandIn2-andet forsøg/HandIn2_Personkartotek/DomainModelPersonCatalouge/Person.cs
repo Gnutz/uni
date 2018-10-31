@@ -38,7 +38,9 @@ namespace DomainModelPersonCatalogue
             Console.WriteLine($"FirstName: {FirstName}");
             Console.WriteLine($"MiddleName: {MiddleName}");
             Console.WriteLine($"SurName: {Surname}");
-            PrimaryAddress.print();
+
+            if(PrimaryAddress != null)
+                PrimaryAddress.print();
 
             Console.WriteLine("Alternative Addresses:");
             foreach (var address in AlternativeAddresses)

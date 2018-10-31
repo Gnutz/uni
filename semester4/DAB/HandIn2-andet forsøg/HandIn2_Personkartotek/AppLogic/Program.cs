@@ -20,6 +20,7 @@ namespace AppLogic
         static void Main(string[] args)
         {
             DBUtility util = new DBUtility();
+            util.CleanDatabase();
 
             Console.WriteLine("This is a test of the CRUD Operation of PersonCatalogueDB");
 
@@ -107,7 +108,7 @@ namespace AppLogic
 
             pers1.FirstName = " new FirstName";
             pers1.MiddleName = "new MiddleName";
-            pers1.Surname = " new SurName";
+            pers1.Surname = "new SurName";
 
             util.UpdatePerson(ref pers1);
 
@@ -131,11 +132,11 @@ namespace AppLogic
             AlternativeAddress altAddr2 = new AlternativeAddress();
 
             altAddr1.Person = pers1;
-            altAddr1.AddressID = addr1.AddressID;
+            altAddr1.Address = addr1;
             altAddr1.Type = "type1";
             altAddr2.Person = pers1;
             altAddr2.Type = "type2";
-            altAddr2.AddressID = addr3.AddressID;
+            altAddr2.Address = addr3;
 
             util.AddAltAddress(ref altAddr1);
             util.AddAltAddress(ref altAddr2);
@@ -146,19 +147,105 @@ namespace AppLogic
 
             Person pers2 = new Person();
             pers2.PersonId = pers1.PersonId;
+            util.GetPersonById(ref pers2);
+            util.GetAddressByPerson(ref pers2);
+            pers2.print();
+            PressToContinue();
             pers2.AlternativeAddresses = util.GetAllOfAPersonsAltAddresses(ref pers2);
+            pers2.print();
             PressToContinue();
 
+            Note note1 = new Note();
+            note1.Person = pers1;
+            note1.NoteText = "note 1";
+            Note note2 = new Note();
+            note2.Person = pers1;
+            note2.NoteText = "note 2";
 
+            util.AddNote(ref note1);
+            util.AddNote(ref note2);
+            Console.WriteLine("two notes on pers1 is added to the database");
+            PressToContinue();
 
+            note2.NoteText = "new note";
+            util.UpdateNote(ref note2);
+            Console.WriteLine("note 2 updated in database");
+            PressToContinue();
 
+            pers2.Notes = util.GetAllOfAPersonsNotes(ref pers2);
+            pers2.print();
+            PressToContinue();
 
+            util.DeleteNote(ref note2);
+            Console.WriteLine("note 2 deleted on database");
+            PressToContinue();
 
+            EmailAddress email1 = new EmailAddress();
+            email1.Email = "email1@google.com";
+            email1.Person = pers1;
 
+            EmailAddress email2 = new EmailAddress();
+            email2.Email = "email2@google.com";
+            email2.Person = pers1;
 
+            util.AddEmailAddress(ref email1);
+            util.AddEmailAddress(ref email2);
 
+            Console.WriteLine("two email addrssses on pers1 is added to the database");
+            PressToContinue();
 
+            email2.Email = "newEmail@google.com";
+            util.UpdateEmailAddress(ref email2);
 
+            Console.WriteLine("email 2 updated on database");
+            PressToContinue();
+
+            pers2.EmailAddresses = util.GetAPersonsEmailList(ref pers2);
+            pers2.print();
+            PressToContinue();
+
+            util.DeleteEmailAddress(ref email2);
+
+            Console.WriteLine("email 2 deleted on database");
+            PressToContinue();
+
+            PhoneCompany phnCom1 = new PhoneCompany();
+            phnCom1.CompanyName = "PhonComapny1";
+            util.AddPhoneCompany(ref phnCom1);
+            Console.WriteLine("A PhoneCompany is added to the database");
+
+            Phonenumber num1 = new Phonenumber();
+            num1.PhoneNumber = "+45 00 00 00 00 00";
+            num1.type = "type1";
+            num1.PhoneCompany = phnCom1;
+            num1.Person = pers1;
+
+            Phonenumber num2 = new Phonenumber();
+            num2.PhoneNumber = "+45 22 22 22 22 22";
+            num2.type = "type2";
+            num2.PhoneCompany = phnCom1;
+            num2.Person = pers1;
+
+            util.AddPhonenumber(ref num1);
+            util.AddPhonenumber(ref num2);
+
+            Console.WriteLine("two phone numbers on pers1 is added to the database");
+            PressToContinue();
+
+            num2.PhoneNumber = "+80 00000000";
+            num2.type = "new type";
+            util.UpdatePhoneNumber(ref num2);
+
+            Console.WriteLine("num2 updated on database");
+            PressToContinue();
+
+            pers2.PhoneNumbers = util.GetAllOfAPersonsPhonenumbers(ref pers2);
+            pers2.print();
+            PressToContinue();
+
+            util.DeletePhonenumber(ref num2);
+            Console.WriteLine("phone number 2 deleted on database");
+            PressToContinue();
 
         }
     }

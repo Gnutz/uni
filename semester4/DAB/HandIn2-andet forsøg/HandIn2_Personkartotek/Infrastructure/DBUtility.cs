@@ -42,7 +42,7 @@ namespace Infrastructure
             {
                 //var con = new SqlConnection(@"Data Source=(localdb)\ProjectsV13;Initial Catalog=CraftManDB;Integrated Security=True");
                 var con = new SqlConnection(
-                    @"Data Source=st-i4dab.uni.au.dk;Initial Catalog=E18I4DABau569735;Persist Security Info=False;User ID=E18I4DABau569735;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True");
+                    @"Data Source = (localdb)\MSSQLLocalDB; Initial Catalog = PersonCatalogueDB; Integrated Security = True; Persist Security Info = False; Pooling = False; MultipleActiveResultSets = False; Connect Timeout = 60; Encrypt = False; TrustServerCertificate = True");
                 con.Open();
                 return con;
             }
@@ -244,18 +244,15 @@ namespace Infrastructure
         
         public void AddAltAddress(ref AlternativeAddress altAddress)
         {
-            
-            string insertStringParam = @"INSERT INTO [Alternative_Address] (PersonID, AddressID, type)
-                                                    OUTPUT INSERTED.AddressID
-                                                    OUTPUT INSERTED.PersonID
-                                                    VALUES (@PersonID, @AddressID, @type)";
+
+            string insertStringParam = @"INSERT INTO [ALternative_Address] (PersonID, AddressID, type)
+                                                  VALUES (@PersonID, @AddressID, type)";
 
             using (SqlCommand cmd = new SqlCommand(insertStringParam, OpenConnection))
             {
 
-                cmd.Parameters.AddWithValue("@type", altAddress.Type);
                 cmd.Parameters.AddWithValue("@PersonID", altAddress.Person.PersonId);
-                cmd.Parameters.AddWithValue("@AddressID", altAddress.AddressID);
+                cmd.Parameters.AddWithValue("@AddressID", altAddress.Address.AddressID);
             }
         }
 
@@ -263,9 +260,7 @@ namespace Infrastructure
         {
 
             string selectString =
-                @"SELECT Address.AddressID, Address.Street, Address.HouseNumber, Address.CityID, Alternative_Address.type, 
-                         Alternative_Address.PersonID 
-             FROM   Address INNER JOIN
+                @"SELECT * FROM   Address INNER JOIN
              Alternative_Address ON Address.AddressID = Alternative_Address.AddressID LEFT OUTER JOIN
              Person ON Address.AddressID = Person.AddressID AND Alternative_Address.PersonID = Person.PersonID
              WHERE (Alternative_Address.PersonID = @PersonID)";
@@ -283,12 +278,12 @@ namespace Infrastructure
                     altAddress = new AlternativeAddress();
                     Person person_ = new Person();
                     altAddress.Person = person_;
-                    altAddress.Person.PersonId = (long)rdr["Alternative_Address.PersonID "];
-                    altAddress.AddressID = (long)rdr["Address.AddressID"];
-                    altAddress.Street = (string)rdr["Address.Street"];
-                    altAddress.HouseNumber = (string)rdr["Address.HouseNumber"];
-                    altAddress.City.CityID = (long)rdr["Address.CityID"];
-                    altAddress.Type = (string)rdr["Alternative_Address.type"];
+                    altAddress.Person.PersonId = (long)rdr["PersonID"];
+                    altAddress.Address.AddressID = (long)rdr["AddressID"];
+                    altAddress.Address.Street = (string)rdr["Street"];
+                    altAddress.Address.HouseNumber = (string)rdr["HouseNumber"];
+                    altAddress.Address.City.CityID = (long)rdr["CityID"];
+                    altAddress.Type = (string)rdr["type"];
 
                     _alternativeAddresses.Add(altAddress);
                 }
@@ -306,7 +301,7 @@ namespace Infrastructure
                                                                            Alternative_Address.AddressID = @AddressID)";
             using (SqlCommand cmd = new SqlCommand(deleteString, OpenConnection))
             {
-                cmd.Parameters.AddWithValue("@AddressID", altAddress.AddressID);
+                cmd.Parameters.AddWithValue("@AddressID", altAddress.Address.AddressID);
                 cmd.Parameters.AddWithValue("@PersonID", altAddress.Person.PersonId);
 
                 var id = (long)cmd.ExecuteNonQuery();
@@ -380,7 +375,36 @@ namespace Infrastructure
             }
         }
 
-        
+        public void GetAddressByPerson(ref Person person)
+        {
+            string selectString = @"SELECT * FROM Address INNER JOIN
+                           Person ON Person.AddressID = Address.AddressID
+                           WHERE (Person.PersonID = @PersonID)";
+            using (var cmd = new SqlCommand(selectString, OpenConnection))
+            {
+                cmd.Parameters.AddWithValue("@PersonID", person.PersonId);
+                SqlDataReader rdr = null;
+                rdr = cmd.ExecuteReader();
+
+                Address address = new Address();
+                if (rdr.Read())
+                {
+
+                    address.AddressID = (long)rdr["AddressID"];
+                    address.Street = (string)rdr["Street"];
+                    address.HouseNumber = (string)rdr["HouseNumber"];
+                    currentCity.CityID = (long)rdr["CityID"];
+
+                }
+
+                GetCityById(ref currentCity);
+                address.City = currentCity;
+
+                person.PrimaryAddress = address;
+            }
+        }
+
+
         public void DeleteAddress(ref Address address)
         {
             string deleteString = @"DELETE FROM Address WHERE (AddressID = @AddressID)";
@@ -452,7 +476,7 @@ namespace Infrastructure
                     person.PersonId = (long)rdr["PersonID"];
                     person.FirstName = (string) rdr["FirstName"];
                     person.MiddleName = (string)rdr["MiddleName"];
-                    currentAddress.AddressID = (long)rdr["PrimaryAddress"];
+                    currentAddress.AddressID = (long)rdr["AddressID"];
 
 
                 }
@@ -598,7 +622,7 @@ namespace Infrastructure
             using (SqlCommand cmd = new SqlCommand(insertStringParam, OpenConnection))
             {
 
-                cmd.Parameters.AddWithValue("@@PhoneNumber", number.PhoneNumber);
+                cmd.Parameters.AddWithValue("@PhoneNumber", number.PhoneNumber);
                 cmd.Parameters.AddWithValue("@type", number.type);
                 cmd.Parameters.AddWithValue("@PersonID", number.Person.PersonId);
                 cmd.Parameters.AddWithValue("@PhnCompanyID", number.PhoneCompany.PhoneCompanyID);
@@ -678,10 +702,7 @@ namespace Infrastructure
         {
 
             string selectPhonenumbersString =
-                @"SELECT PhoneNumber.PhnNumberID, PhoneNumber.PhoneNumber, PhoneNumber.type, PhoneNumber.PhnCompanyID, PhoneNumber.PersonID
-                         PhoneCompany.CompanyName
-
-                    FROM   Person INNER JOIN
+                @"SELECT * FROM   Person INNER JOIN
                            PhoneNumber ON Person.PersonID = PhoneNumber.PersonID LEFT OUTER JOIN
                            PhoneCompany ON PhoneNumber.PhnCompanyID = PhoneCompany.PhnCompanyID
                     WHERE (PhoneNumber.PersonID = @PersonID)";
@@ -699,16 +720,16 @@ namespace Infrastructure
                     number = new Phonenumber();
                     Person person_ = new Person();
                     number.Person = person_;
-                    number.Person.PersonId = (long) rdr["PhoneNumber.PersonID"];
-                    number.PhoneNumberID = (long) rdr["PhoneNumber.PhnNumberID"];
-                    number.PhoneNumber = (string) rdr["PhoneNumber.PhoneNumber"];
-                    number.type = (string) rdr["PhoneNumber.type"];
+                    number.Person.PersonId = (long) rdr["PersonID"];
+                    number.PhoneNumberID = (long) rdr["PhnNumberID"];
+                    number.PhoneNumber = (string) rdr["PhoneNumber"];
+                    number.type = (string) rdr["type"];
                     if (!rdr.IsDBNull(4))
                     {
                         PhoneCompany company = new PhoneCompany();
                         number.PhoneCompany = company;
-                        company.PhoneCompanyID = (long) rdr["PhoneNumber.PhnCompanyID"];
-                        company.CompanyName = (string) rdr["PhoneCompany.CompanyName"];
+                        company.PhoneCompanyID = (long) rdr["PhnCompanyID"];
+                        company.CompanyName = (string) rdr["CompanyName"];
                         
                     }
                     else
@@ -839,7 +860,7 @@ namespace Infrastructure
         {
             string updateString =
                 @"UPDATE EmailAddress                 
-                        SET Email= @Email,  
+                        SET Email= @Email   
                         WHERE EmailID = @EmailID";
 
             using (SqlCommand cmd = new SqlCommand(updateString, OpenConnection))
@@ -857,8 +878,7 @@ namespace Infrastructure
         {
 
             string selectString =
-                @"SELECT EmailAddress.EmailID, EmailAddress.Email, EmailAddress.PersonID
-                        FROM   EmailAddress INNER JOIN
+                @"SELECT * FROM   EmailAddress INNER JOIN
                         Person ON EmailAddress.PersonID = Person.PersonID
                   WHERE (EmailAddress.PersonID = @PersonID)";
 
@@ -873,9 +893,9 @@ namespace Infrastructure
                 while (rdr.Read())
                 {
                     email = new EmailAddress();
-                    email.Person.PersonId = (long)rdr["EmailAddress.PersonID"];
-                    email.EmailAddressID= (long)rdr["EmailAddress.EmailID"];
-                    email.Email = (string) rdr["EmailAddress.Email"];
+                    email.Person.PersonId = (long)rdr["PersonID"];
+                    email.EmailAddressID= (long)rdr["EmailID"];
+                    email.Email = (string) rdr["Email"];
 
                     emailsAddresses.Add(email);
                 }
@@ -892,11 +912,11 @@ namespace Infrastructure
 
         
         public void AddNote(ref Note note)
-        {
+            {
 
 
             string insertStringParam = @"INSERT INTO [Note] (NoteText, PersonID)
-                                                    OUTPUT INSERTED.EmailID  
+                                                    OUTPUT INSERTED.NoteID
                                                     VALUES (@NoteText, @PersonID)";
 
             using (SqlCommand cmd = new SqlCommand(insertStringParam, OpenConnection))
@@ -950,7 +970,7 @@ namespace Infrastructure
             string updateString =
                 @"UPDATE Note                 
                         SET NoteText= @NoteText  
-                        WHERE EmailID = @NoteID";
+                        WHERE NoteID = @NoteID";
 
             using (SqlCommand cmd = new SqlCommand(updateString, OpenConnection))
             {
@@ -967,8 +987,7 @@ namespace Infrastructure
         {
 
             string selectString =
-                @"SELECT Note.NoteID, Note.NoteText, Note.PersonID
-                        FROM   Note INNER JOIN
+                @"SELECT * FROM   Note INNER JOIN
                         Person ON Note.PersonID = Person.PersonID
                   WHERE (Note.PersonID = @PersonID)";
 
@@ -983,9 +1002,9 @@ namespace Infrastructure
                 while (rdr.Read())
                 {
                     note = new Note();
-                    note.Person.PersonId = (long)rdr["Note.PersonID"];
-                    note.NoteID= (long)rdr["Note.NoteID"];
-                    note.NoteText = (string) rdr["Note.NoteText"];
+                    note.Person.PersonId = (long)rdr["PersonID"];
+                    note.NoteID= (long)rdr["NoteID"];
+                    note.NoteText = (string) rdr["NoteText"];
 
                     notes.Add(note);
                 }
@@ -996,7 +1015,274 @@ namespace Infrastructure
 
         }
 
+        //--- ALL THE DELETE FULL TABLE COMMANDS ----
+        public void DeleteALLDataFromCountry()
+        {
+
+            string sqlTrunc = "DELETE FROM Country";
+            SqlCommand cmd = new SqlCommand(sqlTrunc, OpenConnection);
+            cmd.ExecuteNonQuery();
+
+        }
+
+        public void DeleteALLDataFromCity()
+        {
+
+            string sqlTrunc = "DELETE FROM City";
+            SqlCommand cmd = new SqlCommand(sqlTrunc, OpenConnection);
+            cmd.ExecuteNonQuery();
+
+        }
+
+        public void DeleteALLDataFromAddress()
+        {
+
+            string sqlTrunc = "DELETE FROM Address";
+            SqlCommand cmd = new SqlCommand(sqlTrunc, OpenConnection);
+            cmd.ExecuteNonQuery();
+
+        }
+
+        public void DeleteALLDataFromAlternativeAddress()
+        {
+
+            string sqlTrunc = "DELETE FROM Alternative_Address";
+            SqlCommand cmd = new SqlCommand(sqlTrunc, OpenConnection);
+            cmd.ExecuteNonQuery();
+
+        }
+
+        public void DeleteALLDataFromPerson()
+        {
+
+            string sqlTrunc = "DELETE FROM Person";
+            SqlCommand cmd = new SqlCommand(sqlTrunc, OpenConnection);
+            cmd.ExecuteNonQuery();
+
+        }
+
+        public void DeleteALLDataFromPhoneNumber()
+        {
+
+            string sqlTrunc = "DELETE FROM PhoneNumber";
+            SqlCommand cmd = new SqlCommand(sqlTrunc, OpenConnection);
+            cmd.ExecuteNonQuery();
+
+        }
+
+        public void DeleteALLDataFromPhoneCompany()
+        {
+
+            string sqlTrunc = "DELETE FROM PhoneCompany";
+            SqlCommand cmd = new SqlCommand(sqlTrunc, OpenConnection);
+            cmd.ExecuteNonQuery();
+
+        }
+
+        public void DeleteALLDataFromEmailAddress()
+        {
+
+            string sqlTrunc = "DELETE FROM EmailAddress";
+            SqlCommand cmd = new SqlCommand(sqlTrunc, OpenConnection);
+            cmd.ExecuteNonQuery();
+
+        }
+
+        public void DeleteALLDataFromNote()
+        {
+
+            string sqlTrunc = "DELETE FROM Note";
+            SqlCommand cmd = new SqlCommand(sqlTrunc, OpenConnection);
+            cmd.ExecuteNonQuery();
+
+        }
+
+        public void CleanDatabase()
+        {
+            DeleteALLDataFromEmailAddress();
+            DeleteALLDataFromNote();
+            DeleteALLDataFromPhoneNumber();
+            DeleteALLDataFromPhoneCompany();
+            DeleteALLDataFromAlternativeAddress();
+            DeleteALLDataFromPerson();
+            DeleteALLDataFromAddress();
+            DeleteALLDataFromCity();
+            DeleteALLDataFromCountry();
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        }
     }
 }
