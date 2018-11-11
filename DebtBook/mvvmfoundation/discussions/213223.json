@@ -1,0 +1,26 @@
+[
+  {
+    "Id": "445131",
+    "ThreadId": "213223",
+    "Html": "<p>My view has a windows forms host.</p>\r\n<p>I need to bind the child property to a custom control.</p>\r\n<p>Obviously in the .xaml code behind I can reference something like this</p>\r\n<p>this.windowsFormsHost1.Child = myCustomControl</p>\r\n<p><br><br>But I dont want to do this, ideally the Child property in the view would bind to my custom control in the view model</p>\r\n<p>When I do this I get error</p>\r\n<p>&quot;A 'Binding' cannot be set on the 'Child' property of type 'WindowsFormsHost'. A 'Binding' can only be set on a DependencyProperty of a DependencyObject.&quot;</p>\r\n<p>Any help would be GREATLY APPRECIATED.</p>\r\n<p>Thanks!</p>\r\n<p>&nbsp;</p>",
+    "PostedDate": "2010-05-19T14:09:49.697-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "662057",
+    "ThreadId": "213223",
+    "Html": "<p>I'm trying to do exactly the same thing and get the same error message.&nbsp; Did you find a solution?</p>\n<p>Thanks for any help you can give! :-)</p>\n<p>&nbsp;</p>",
+    "PostedDate": "2011-08-23T05:49:13.66-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "662660",
+    "ThreadId": "213223",
+    "Html": "<p>&nbsp;</p>\r\n<p>&nbsp;</p>\r\n<p>It's ok I figured it out.&nbsp;&nbsp;&nbsp;&nbsp; I&nbsp;used binding on&nbsp;a ContentControl to load the Conent property, the content being an&nbsp;instance&nbsp;of WindowsFormHost and it's child.&nbsp;</p>\r\n<p>Hope it helps.</p>\r\n<p>&nbsp;</p>\r\n<p>&nbsp;</p>",
+    "PostedDate": "2011-08-24T06:52:35.323-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

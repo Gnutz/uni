@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "498246",
+    "ThreadId": "228517",
+    "Html": "<p>Hello,</p>\r\n<p>I am still learning about MVVM and have a quick question.&nbsp; I was using ObservableObject as the base class for all of my VMs.&nbsp; However, I recently read an article by Josh describing the CommandSink class, and that if possible VMs should derive form that.</p>\r\n<p>What it the best approach here?&nbsp; I would guess it would be to base my V off of ObservableObject and embed an instance of <code>CommandSink</code> into my ViewModel class.</p>\r\n<p>Just looking for what other people do since I am still new to this :)</p>",
+    "PostedDate": "2010-09-24T14:39:15.237-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "498248",
+    "ThreadId": "228517",
+    "Html": "<p>CommandSink is a base class that you should use if, and only if, you want your VM to support RoutedCommands (as described in <a href=\"http://www.codeproject.com/KB/WPF/VMCommanding.aspx\">that article</a>). &nbsp;In all other situations, use ObservableObject. &nbsp;In general, you should avoid RoutedCommands (they are known to have perf issues) and stick with something like RelayCommand.</p>\r\n<p>If you're looking for more, and deeper, info about MVVM, I suggest you check out my book '<a href=\"http://advancedmvvm.com\">Advanced MVVM</a>'.</p>\r\n<p>Thanks,</p>\r\n<p>Josh</p>",
+    "PostedDate": "2010-09-24T14:46:49.863-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

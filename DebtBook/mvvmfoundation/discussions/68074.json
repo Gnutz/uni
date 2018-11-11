@@ -1,0 +1,26 @@
+[
+  {
+    "Id": "231521",
+    "ThreadId": "68074",
+    "Html": "<p>Can someone explain the differences between the MVVM Foundation and the MVVM Toolkit (http://wpf.codeplex.com/Wiki/View.aspx?title=WPF%20Model-View-ViewModel%20Toolkit)? They seem to have a lot in common. Do they compliment each other or should I just use one or the other?</p>\r\n<p>Thanks,</p>\r\n<p>-Dan</p>",
+    "PostedDate": "2009-09-05T23:53:46.957-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "232253",
+    "ThreadId": "68074",
+    "Html": "<p>I haven't looked too deeply into the WPF Toolkit, but from my understanding, it focuses more on controls than utility/base classes. &nbsp;I think they complement each other.</p>",
+    "PostedDate": "2009-09-08T08:29:53.273-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "232332",
+    "ThreadId": "68074",
+    "Html": "<p>Thanks, Josh. Since posting my question, I've downloaded both packages and taken a look at the contents. Here's what I can gather so far.</p>\r\n<p><strong>The MVVM Toolkit contains the following classes (with associated &quot;summary&quot; definitions):</strong></p>\r\n<p>- <strong>DelegateCommand</strong> - This class allows delegating the commanding logic to methods passed as parameters, and enables a View to bind commands to objects that are not part of the element tree.</p>\r\n<p>- <strong>DelegateCommand&lt;T&gt;</strong> - This class allows delegating the commanding logic to methods passed as parameters, and enables a View to bind commands to objects that are not part of the element tree.</p>\r\n<p>- <strong>CommandManagerHelper </strong>- This class contains methods for the CommandManager that help avoid memory leaks by using weak references.</p>\r\n<p>- <strong>CommandReference </strong>- This class facilitates associating a key binding in XAML markup to a command defined in a View Model by exposing a Command dependency property. The class derives from Freezable to work around a limitation in WPF when data-binding from XAML.</p>\r\n<p><strong>The MVVM Foundation contains the following classes (with associated &quot;summary&quot; definitions):</strong></p>\r\n<p>- <strong>RelayCommand</strong> - A command whose sole purpose is to relay its functionality to other objects by invoking delegates. The default return value for the CanExecute method is 'true'.</p>\r\n<p>- <strong>RelayCommand&lt;T&gt;</strong> - A command whose sole purpose is to relay its functionality to other objects by invoking delegates. The default return value for the CanExecute method is 'true'.</p>\r\n<p>- <strong>ObservableObject</strong> - This is the abstract base class for any object that provides property change notifications.</p>\r\n<p>- <strong>PropertyObserver</strong> - Monitors the PropertyChanged event of an object that implements INotifyPropertyChanged, and executes callback methods (i.e. handlers) registered for properties of that object.</p>\r\n<p>- <strong>Messenger</strong> - Provides loosely-coupled messaging between various colleague objects.&nbsp; All references to objects are stored weakly, to prevent memory leaks.</p>\r\n<p>\r\n<hr>\r\n</p>\r\n<p><strong>Discussion:</strong></p>\r\n<p>So it looks like the DelegateCommand and RelayCommand are pretty similar, though the DelegateCommand uses a CommandManagerHelper to avoid memory leaks, while it appears the RelayCommand just uses the CommandManager directly.</p>\r\n<p>The remaining classes appear to be entirely complimentary, unless I'm misunderstanding what they do.</p>\r\n<p>So, I guess a nice package would be: DelegateCommand, DelegateCommand&lt;T&gt;, CommandManagerHelper, CommandReference, ObservableObject, and PropertyObserver, Messenger.</p>",
+    "PostedDate": "2009-09-08T11:25:54.01-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

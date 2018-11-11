@@ -1,0 +1,42 @@
+[
+  {
+    "Id": "243518",
+    "ThreadId": "71402",
+    "Html": "<p>Josh, been thinking a bit about the behavior of CommandManager, it's InvalidateRequerySuggested and the implementation of RelayCommand (and for that matter some other similar command implementations).</p>\r\n<p>If I understand it correctly, at the moment, the only way to raise the ICommand.CanExecuteChanged event is to call CommandManager.InvalidateRequerySuggested?</p>\r\n<p>The thing that's always bothered me a little with this is that it seems like overkill - whenever some state change occurs which we know changes the canexecute state for a single command, we end up, if I understand things correctly, being forced to requery *all* command objects.</p>\r\n<p>The question I have is - why can't we just update the state for the single affected command? If I understand things correctly, what's happening is the controls which are using the command have handlers that are attached to the command's ICommand.CanExecuteChanged event, and are updating their state (e.g. button enabled/disabled) in response to this event.</p>\r\n<p>Wouldn't it then be better to provide a method that allow raising this event directly on the command class?</p>\r\n<p>I would think this would require an additional change - the command class would have to keep it's own list of registered event handlers for the CanExecuteChanged event instead of purely delegating registration/deregistration to the CommandManager.RequerySuggested event. It would of course still need to register itself with the RequerySuggested event and propogate these notifications to it's handlers.</p>\r\n<p>Am I off-base with this? &nbsp;Maybe it's just not worth it, I guess you could say don't prematurely optimize, and if you did have a CanExecute delegate which was taking a significant time to execute, you could always implement some kind of caching algorithm to avoid invocation when state has not changed.</p>\r\n<p>Maybe it's just me, but it is one think that's kind of concerned me.</p>\r\n<p>Regards,</p>\r\n<p>Phil</p>",
+    "PostedDate": "2009-10-08T09:27:24.493-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "243523",
+    "ThreadId": "71402",
+    "Html": "<p>WPF has a known issue where ICommandSource objects (like Button) will cause memory leaks due to not unhooking the CanExecuteChanged event of their Command. &nbsp;Since CommandManager uses the Weak Event pattern, the leak is avoided when using its RequerySuggested event. &nbsp;That workaround is the reason why RelayCommand uses CommandManager instead of the approach you suggest.</p>\r\n<p>Josh</p>",
+    "PostedDate": "2009-10-08T09:38:16.957-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "243565",
+    "ThreadId": "71402",
+    "Html": "<p>Josh, if I was to implement the weak event pattern on the command class would this handle this issue?</p>\r\n<p>I'm using these command classes purely within viewmodels, so I would expect the bindings from the views to prevent incorrect collection of the command objects, either as a result of the bindings from the views to the commands or as a result of the bindings from the view to the viewmodel and the viewmodel's references to it's child command objects.</p>\r\n<p>Maybe it's not really worth it, but since it's bugging me, do you think it would work?? &nbsp;;)</p>\r\n<p>Thanks,</p>\r\n<p>Phil</p>\r\n<p>&nbsp;</p>",
+    "PostedDate": "2009-10-08T11:55:42.393-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "243570",
+    "ThreadId": "71402",
+    "Html": "<p>The fact that the View elements are bound to a command in the ViewModel does not mean that the ICommandSource doesn't hook the CanExecuteChanged event of the command. &nbsp;Binding the Command property of a Button is just another way of setting that property, which eventually causes the event to be hooked. &nbsp;Implementing your own weak event pattern would probably work, but I'm lazy and took the easy way out (CommandManager). ;)</p>\r\n<p>Josh</p>",
+    "PostedDate": "2009-10-08T11:59:51.58-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "243576",
+    "ThreadId": "71402",
+    "Html": "<p>Thanks Josh,</p>\r\n<p>Phil</p>\r\n<p>&nbsp;</p>",
+    "PostedDate": "2009-10-08T12:16:42.013-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

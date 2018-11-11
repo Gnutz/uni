@@ -1,0 +1,26 @@
+[
+  {
+    "Id": "244358",
+    "ThreadId": "71639",
+    "Html": "<p>I just started using the RelayCommand a couple of days ago and love it. But I seem to be stuck on how to use the CommandParameter with it.</p>\r\n<p>\r\n<div style=\"color:Black;background-color:White\">\r\n<pre><span style=\"color:Blue\">&lt;</span><span style=\"color:#A31515\">Button</span> <span style=\"color:Red\">x:Name</span><span style=\"color:Blue\">=</span><span style=\"color:Black\">&quot;</span><span style=\"color:Blue\">btnPrint</span><span style=\"color:Black\">&quot;</span>\r\n    <span style=\"color:Red\">Width</span><span style=\"color:Blue\">=</span><span style=\"color:Black\">&quot;</span><span style=\"color:Blue\">50</span><span style=\"color:Black\">&quot;</span>\r\n    <span style=\"color:Red\">Height</span><span style=\"color:Blue\">=</span><span style=\"color:Black\">&quot;</span><span style=\"color:Blue\">50</span><span style=\"color:Black\">&quot;</span>\r\n    <span style=\"color:Red\">HorizontalAlignment</span><span style=\"color:Blue\">=</span><span style=\"color:Black\">&quot;</span><span style=\"color:Blue\">Right</span><span style=\"color:Black\">&quot;</span>\r\n    <span style=\"color:Red\">VerticalAlignment</span><span style=\"color:Blue\">=</span><span style=\"color:Black\">&quot;</span><span style=\"color:Blue\">Bottom</span><span style=\"color:Black\">&quot;</span>\r\n    <span style=\"color:Red\">Command</span><span style=\"color:Blue\">=</span><span style=\"color:Black\">&quot;</span><span style=\"color:Blue\">{Binding Path=PrintCommand}</span><span style=\"color:Black\">&quot;</span>\r\n    <span style=\"color:Red\">CommandParameter</span><span style=\"color:Blue\">=</span><span style=\"color:Black\">&quot;</span><span style=\"color:Blue\">{Binding ElementName=PrintLayout}</span><span style=\"color:Black\">&quot;</span><span style=\"color:Blue\">/&gt;</span>\r\n</pre>\r\n</div>\r\n</p>\r\n<p>\r\n<div style=\"color:Black;background-color:White\">\r\n<pre><span style=\"color:Blue\">public</span> ICommand PrintCommand\r\n{\r\n    <span style=\"color:Blue\">get</span>\r\n        {\r\n            <span style=\"color:Blue\">if</span> (printCommand == <span style=\"color:Blue\">null</span>)\r\n                printCommand = <span style=\"color:Blue\">new</span> RelayCommand(() =&gt; <span style=\"color:Blue\">this</span>.Print());\r\n            <span style=\"color:Blue\">return</span> printCommand;\r\n        }\r\n}\r\n</pre>\r\n</div>\r\nThe idea here is that the element that is passed through CommandParameter would be passed to the print function.</p>",
+    "PostedDate": "2009-10-11T07:21:18.027-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "244371",
+    "ThreadId": "71639",
+    "Html": "<p>Sorry for wasting anyones time, it took me about 30 minutes after posting the original to realize the error of my way.</p>\r\n<p>Original</p>\r\n<div style=\"color:Black;background-color:White\">\r\n<pre><span style=\"color:Blue\">private</span> RelayCommand printCommand;\r\n</pre>\r\n</div>\r\n<p>Modified</p>\r\n<div style=\"color:Black;background-color:White\">\r\n<pre><span style=\"color:Blue\">private</span> RelayCommand&lt;<span style=\"color:Blue\">object</span>&gt; printCommand;\r\n\r\n<span style=\"color:Blue\">public</span> ICommand PrintCommand\r\n{\r\n    <span style=\"color:Blue\">get</span>\r\n        {\r\n            <span style=\"color:Blue\">if</span> (printCommand == <span style=\"color:Blue\">null</span>)\r\n                printCommand = <span style=\"color:Blue\">new</span> RelayCommand&lt;<span style=\"color:Blue\">object</span>&gt;(\r\n                    (param) =&gt; <span style=\"color:Blue\">this</span>.Print(param));\r\n            <span style=\"color:Blue\">return</span> printCommand;\r\n        }\r\n}\r\n</pre>\r\n</div>",
+    "PostedDate": "2009-10-11T08:40:45.183-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "248002",
+    "ThreadId": "71639",
+    "Html": "<p>Assuming you're using the original RelayCommand class from this post: <a href=\"http://msdn.microsoft.com/en-us/magazine/dd419663.aspx\">http://msdn.microsoft.com/en-us/magazine/dd419663.aspx</a></p>\r\n<p>I think&nbsp;the correct syntax&nbsp;should be:</p>\r\n<pre><span style=\"color:blue\">private</span> RelayCommand printCommand;\r\n\r\n<span style=\"color:blue\">public</span> ICommand PrintCommand\r\n{\r\n    <span style=\"color:blue\">get</span>\r\n        {\r\n            <span style=\"color:blue\">if</span> (printCommand == <span style=\"color:blue\">null</span>)\r\n                printCommand = <span style=\"color:blue\">new</span> RelayCommand(\r\n                    (param) =&gt; <span style=\"color:blue\">this</span>.Print(param));\r\n            <span style=\"color:blue\">return</span> printCommand;\r\n        }\r\n}\r\n</pre>\r\n<p>&nbsp;</p>",
+    "PostedDate": "2009-10-21T00:59:43.217-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

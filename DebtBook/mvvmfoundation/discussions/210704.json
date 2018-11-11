@@ -1,0 +1,26 @@
+[
+  {
+    "Id": "435968",
+    "ThreadId": "210704",
+    "Html": "<p>I would like to create an application that switches from a home screen, to a list of products, to the details of the selected product, to payment methods ...</p>\r\n<p>If it were a web application it would just be redirects, but stil don't know WPF idioms. I am confused by the possibilies I see. One example could be switching data contexts and tryng to let data templates do the job.</p>\r\n<p>This is my first WPF project and I am not familiar at all with WPF, having worked mostly in C, Java and JavaScript. Still I am here for the unit testing and like MVVM for its clean separation of UI and behaviour.</p>",
+    "PostedDate": "2010-04-27T07:19:13.61-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "435977",
+    "ThreadId": "210704",
+    "Html": "<p>Experimenting I have found that if I can define a codebehind handler and a command on the same object. One click would execute them both and I could use codebehind for navigation and commands for business logic, but it does not feel right.</p>",
+    "PostedDate": "2010-04-27T07:35:31.45-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "436003",
+    "ThreadId": "210704",
+    "Html": "<p>One good way is to use the Screen Conductor technique.&nbsp; Rob Eisenberg gave a good demonstration of this in <a href=\"http://live.visitmix.com/MIX10/Sessions/EX15\">his MIX 10 presentation</a>.</p>",
+    "PostedDate": "2010-04-27T08:18:44.973-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

@@ -1,0 +1,76 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": null,
+    "CommentCount": 0,
+    "Custom": null,
+    "Description": "Since the PropertyChangedEventArgs already has the property name, and it is frequently (at least for me!) the case that I'm just passing the change notification from a model property to a ViewModel property of the same name. I added a second PropertyObserver.Register method that takes a two parameter action (the second parameter is string).  When invoked the property name is passed as the value of that parameter.\n \nAlso, I added a CollectionObserver class that does WeakEvent connection to INotifyCollectionChanged.  It catches changes to the collection itself (unlike the Charles Petzold msdn article, which deals with changes to the items IN the collection.)  The registrations are specific by the enum NotifyCollectionChangedAction.\n \nCode (and simple unit tests) attached.",
+    "LastUpdatedDate": "2013-02-21T16:05:49.75-08:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Low",
+      "Severity": 50,
+      "Id": 1
+    },
+    "ProjectName": "mvvmfoundation",
+    "ReportedDate": "2009-08-21T16:57:50-07:00",
+    "Status": {
+      "Name": "Proposed",
+      "Id": 1
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "PropertyObserver: added handlers that pass property name & CollectionObserver",
+    "Type": {
+      "Name": "Issue",
+      "Id": 3
+    },
+    "VoteCount": 1,
+    "Id": 5453
+  },
+  "FileAttachments": [
+    {
+      "FileId": 1778,
+      "FileName": "MvvmFoundation.MH-Changes.zip",
+      "DownloadUrl": ".\\1778"
+    }
+  ],
+  "Comments": [
+    {
+      "Message": "Thanks for this suggestion, Matt.  At this time I'm not going to add it to the library, because I have never found myself wanting this particular feature, and it introduces a new type to the library (CollectionObserver).  I might be overly conservative, but my overarching goal with MVVM Foundation is to keep it as minimal as possible.  Perhaps one day I will come around, and add it.  Thanks again!",
+      "PostedDate": "2009-08-23T11:56:42.307-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2009-08-23T11:56:55.4-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "feature declined\r\n\r\n\n\n** Closed by JoshSmithOnWpf 8/23/2009 11:56 AM",
+      "PostedDate": "2009-08-23T12:08:28.903-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "After revisiting this item, I realized that you are proposing two new, unrelated additions.  I should have been more thorough before closing this item!  I very much like the CollectionObserver class, and can think of several situations in which I would have used it.  I will reconsider this proposal.  Great work!",
+      "PostedDate": "2009-08-23T12:08:29.387-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "The justification for the two parameter handler in the PropertyObserver.RegisterHandler (not .Register, a typo in the original Description above) is where the View Model has a property which has the same name as a Model property but is just a controlled formattingt of the value.  \r\nE.g., \r\n    public string RealTemperature {  get { return GetFormattedOutputTemperature(TheRunConditions.RealTemperature); }  }\r\nThe handler registered on the RealTemperature property of the model (TheRunConditions) needs only to raise the PropertyChanged event for the ViewModel in order for WPF to update the display.  Since there are several such property-pairs in my Model-ViewModel, I have a simple handler that is registered for them all:\r\nRunConditionsObserver = new PropertyObserver<RunConditions>(TheRunConditions)\r\n                              .RegisterHandler(rc => rc.RealTemperature, PassThroughRaisePropertyChanged)\r\n                              .RegisterHandler( ... etc\r\n\r\n    void PassThroughRaisePropertyChanged(object ignore, string propertyName)\r\n    { RaisePropertyChanged(propertyName); }\r\n\r\nIn this way the registered handlers don't need to have the property names \"hard coded\".",
+      "PostedDate": "2009-08-24T10:34:32.723-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2013-02-21T16:05:49.75-08:00",
+      "Id": -2147483648
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "256997",
+    "ThreadId": "75093",
+    "Html": "<p>Why is the constructor for the Customer class marked as protected? What is the benefit of using static methods to create customers? By the way, thank you for creating the sample and article, both have been extremely helpful. I hope to construct all my future applications using the MVVM design pattern.</p>\r\n<p>\r\n<div style=\"color:Black;background-color:White\">\r\n<pre><span style=\"color:Blue\">public</span> <span style=\"color:Blue\">static</span> Customer CreateNewCustomer()\r\n{\r\n    <span style=\"color:Blue\">return</span> <span style=\"color:Blue\">new</span> Customer();\r\n}\r\n\r\n<span style=\"color:Blue\">public</span> <span style=\"color:Blue\">static</span> Customer CreateCustomer(\r\n    <span style=\"color:Blue\">double</span> totalSales,\r\n    <span style=\"color:Blue\">string</span> firstName,\r\n    <span style=\"color:Blue\">string</span> lastName,\r\n    <span style=\"color:Blue\">bool</span> isCompany,\r\n    <span style=\"color:Blue\">string</span> email)\r\n{\r\n    <span style=\"color:Blue\">return</span> <span style=\"color:Blue\">new</span> Customer\r\n    {\r\n        TotalSales = totalSales,\r\n        FirstName = firstName,\r\n        LastName = lastName,\r\n        IsCompany = isCompany,\r\n        Email = email\r\n    };\r\n}\r\n\r\n<span style=\"color:Blue\">protected</span> Customer()\r\n{\r\n}\r\n</pre>\r\n</div>\r\n</p>",
+    "PostedDate": "2009-11-13T17:34:30.967-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "257128",
+    "ThreadId": "75093",
+    "Html": "<p>For this demo, it was unnecessary. &nbsp;In general, though, I find it can be useful to use factory methods to create objects, instead of new()'ing them. &nbsp;By using a factory method, you make it easier to refactor the code later to change the way that objects are created and initialized, without having to change all the places that request a new object.</p>",
+    "PostedDate": "2009-11-14T10:42:05.67-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

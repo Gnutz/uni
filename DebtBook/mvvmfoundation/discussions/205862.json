@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "420844",
+    "ThreadId": "205862",
+    "Html": "<p>Oh Hai thare.<br><br>I'm developing an application and I'm using the RelayCommand. Now I want to bind KeyGestures to one but I have yet found any how-to yet.<br>Is this possible in some way?</p>",
+    "PostedDate": "2010-03-20T13:27:59.487-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "420847",
+    "ThreadId": "205862",
+    "Html": "<p>Nevermind, I just realised&nbsp;I didn't do 'nuff research and I spelled my binding wrong so it would've worked from the beginning x)...<br><br>Anyway for those who want to know, what I did was just to bind a KeyBinding to my RelayCommand in XAML like this:</p>\r\n<p>&nbsp;</p>\r\n<p>&nbsp;</p>\r\n<div style=\"color:Black;background-color:White\">\r\n<pre><span style=\"color:Blue\">&lt;</span><span style=\"color:#A31515\">Window.InputBindings</span><span style=\"color:Blue\">&gt;</span>\r\n        <span style=\"color:Blue\">&lt;</span><span style=\"color:#A31515\">KeyBinding</span> <span style=\"color:Red\">Command</span><span style=\"color:Blue\">=</span><span style=\"color:Black\">&quot;</span><span style=\"color:Blue\">{Binding Path=NewCampaignCommand}</span><span style=\"color:Black\">&quot;</span> <span style=\"color:Red\">Key</span><span style=\"color:Blue\">=</span><span style=\"color:Black\">&quot;</span><span style=\"color:Blue\">N</span><span style=\"color:Black\">&quot;</span> <span style=\"color:Red\">Modifiers</span><span style=\"color:Blue\">=</span><span style=\"color:Black\">&quot;</span><span style=\"color:Blue\">Ctrl</span><span style=\"color:Black\">&quot;</span> <span style=\"color:Blue\">/&gt;</span>\r\n<span style=\"color:Blue\">&lt;/</span><span style=\"color:#A31515\">Window.InputBindings</span><span style=\"color:Blue\">&gt;</span>\r\n</pre>\r\n</div>\r\n<p>&nbsp;</p>\r\n<p>This apperently only works with .NET 4.0. In earlier versions of .NET the Command Property in Keybinding didn't support binding at all, at least that's what I've read so I can't really say for sure.</p>",
+    "PostedDate": "2010-03-20T13:50:48.997-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

@@ -1,0 +1,10 @@
+[
+  {
+    "Id": "280872",
+    "ThreadId": "81785",
+    "Html": "<p>Hi Josh!</p>\r\n<p>First of I love your MVVM Foundation and use many of your classes on a daily basis in my work1 However I have been wanting to create my own MVVM project on codeplex, it will be a kind of MVVM compilation of the most useful classes but nothing more and nothing less. I have lately developed many unreleased behaviors/actions/triggers that are perfect for use together with MVVM, but it would be even better if I could bundle these with a basic MVVM project that includes the messenger and relaycommand for example. Would this be ok as long as I include the same license as you do? I would also like to add a good basic dialog box support in this project, which I currently feel is missing in MVVM foundation.</p>\r\n<p>Keep up the good work! /Johan</p>",
+    "PostedDate": "2010-01-23T03:33:03.977-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

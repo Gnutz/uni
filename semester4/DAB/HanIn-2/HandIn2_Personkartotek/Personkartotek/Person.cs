@@ -11,7 +11,7 @@ namespace Personkartotek
 {
     public class Person
         {
-            public uint PersonID { get; set;}          // pk = Primary Key
+            public uint PersonID { get; set;}      
 
             public string Fornavn { get; set;}
            public string Efternavn { get; set;}

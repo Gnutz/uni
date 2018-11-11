@@ -1,0 +1,10 @@
+[
+  {
+    "Id": "1122399",
+    "ThreadId": "468269",
+    "Html": "<a href=\"http://www.codeproject.com/Articles/165368/WPF-MVVM-Quick-Start-Tutorial\" rel=\"nofollow\">MicroMVVM</a>\r<br />\n<br />\nin this way it's possible to call RaisePropertyChanged(() =&gt; PropertyName) refering directly to hte property action instead of the string.<br />\n",
+    "PostedDate": "2013-11-12T07:56:38.687-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

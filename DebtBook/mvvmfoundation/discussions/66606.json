@@ -1,0 +1,10 @@
+[
+  {
+    "Id": "226349",
+    "ThreadId": "66606",
+    "Html": "<p>In the project you have test for the RelayCommand, I just wondered how would you test&nbsp;</p>\r\n<p><span style=\"font-size:x-small\">\r\n<p>the CanExecuteChanged within the RelayCommand</p>\r\n<p>TIA</p>\r\n<p>Yaz</p>\r\n<p>&nbsp;</p>\r\n</span></p>",
+    "PostedDate": "2009-08-21T07:53:50.307-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

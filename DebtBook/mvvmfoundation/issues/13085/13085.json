@@ -1,0 +1,45 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": null,
+    "CommentCount": 0,
+    "Custom": null,
+    "Description": "```\n            MessengerApp.Instance.Register(\n                MessengerEvents.MSG_REGEX_SETTINGS_SAVED,\n                () =>\n                {\n                    // Doesn't works\n                    SaveRegexSettings(mainVM.OptionsVM);\n                    // this works\n                    MessageBox.Show(\"Hello\");\n                });\n```\n\nWhy?",
+    "LastUpdatedDate": "2013-11-13T03:16:24.537-08:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Unassigned",
+      "Severity": 0,
+      "Id": 0
+    },
+    "ProjectName": "mvvmfoundation",
+    "ReportedDate": "2013-11-13T02:01:23.39-08:00",
+    "Status": {
+      "Name": "Proposed",
+      "Id": 1
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "Messenger doesn't always callback function",
+    "Type": {
+      "Name": "Unassigned",
+      "Id": 5
+    },
+    "VoteCount": 1,
+    "Id": 13085
+  },
+  "FileAttachments": [],
+  "Comments": [
+    {
+      "Message": "Solved, mainVM should passed only as param by NotifyColleagues.",
+      "PostedDate": "2013-11-13T03:16:24.537-08:00",
+      "Id": -2147483648
+    }
+  ]
+}

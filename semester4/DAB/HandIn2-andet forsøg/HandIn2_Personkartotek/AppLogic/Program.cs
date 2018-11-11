@@ -23,6 +23,7 @@ namespace AppLogic
             util.CleanDatabase();
 
             Console.WriteLine("This is a test of the CRUD Operation of PersonCatalogueDB");
+            PressToContinue();
 
             //Test Add Country
             Country country1 = new Country();
@@ -101,9 +102,10 @@ namespace AppLogic
             util.AddPerson(ref pers1);
 
             Console.WriteLine("A Person has been added to the database");
+            // PressToContinue();
+            //Console.Write("This is the person:"); 
+            // pers1.print();
             PressToContinue();
-            Console.Write("This is the person:"); 
-            pers1.print();
 
 
             pers1.FirstName = " new FirstName";
@@ -113,12 +115,13 @@ namespace AppLogic
             util.UpdatePerson(ref pers1);
 
             Console.WriteLine("Person has been updated:");
-            pers1.print();
+            PressToContinue();
+          //  pers1.print();
 
-            pers1.PrimaryAddress = addr2;
+           
             Address primAddr = pers1.PrimaryAddress;
             util.GetAddressById(ref primAddr);
-            PressToContinue();
+          //  PressToContinue();
             primAddr.Street = "new street";
             primAddr.HouseNumber = "new number";
             util.UpdateAddress(ref primAddr);
@@ -149,8 +152,8 @@ namespace AppLogic
             pers2.PersonId = pers1.PersonId;
             util.GetPersonById(ref pers2);
             util.GetAddressByPerson(ref pers2);
-            pers2.print();
-            PressToContinue();
+            //pers2.print();
+            //PressToContinue();
             pers2.AlternativeAddresses = util.GetAllOfAPersonsAltAddresses(ref pers2);
             pers2.print();
             PressToContinue();

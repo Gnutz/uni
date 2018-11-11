@@ -42,7 +42,7 @@ namespace Infrastructure
             {
                 //var con = new SqlConnection(@"Data Source=(localdb)\ProjectsV13;Initial Catalog=CraftManDB;Integrated Security=True");
                 var con = new SqlConnection(
-                    @"Data Source = (localdb)\MSSQLLocalDB; Initial Catalog = PersonCatalogueDB; Integrated Security = True; Persist Security Info = False; Pooling = False; MultipleActiveResultSets = False; Connect Timeout = 60; Encrypt = False; TrustServerCertificate = True");
+                    @"Data Source=st-i4dab.uni.au.dk; Initial Catalog=E18I4DABau569735;User ID=E18I4DABau569735;Password=E18I4DABau569735;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
                 con.Open();
                 return con;
             }
@@ -257,7 +257,7 @@ namespace Infrastructure
         }
 
         public List<AlternativeAddress> GetAllOfAPersonsAltAddresses(ref Person person)
-        {
+          {
 
             string selectString =
                 @"SELECT * FROM   Address INNER JOIN
@@ -332,7 +332,7 @@ namespace Infrastructure
 
         
         public void AddAddress(ref Address address)
-        {
+          {
 
 
             string insertStringParam = @"INSERT INTO [Address] (Street, HouseNumber, CityID)
@@ -461,7 +461,7 @@ namespace Infrastructure
         
         
         public void GetPersonById(ref Person person)
-        {
+         {
             string selectString = @"SELECT * FROM Person WHERE (PersonId = @PersonId)";
             using (var cmd = new SqlCommand(selectString, OpenConnection))
             {
@@ -489,10 +489,10 @@ namespace Infrastructure
         
         public void DeletePerson(ref Person person)
         {
-            string deleteString = @"DELETE FROM Person WHERE (PersonId = @PersonId)";
+            string deleteString = @"DELETE FROM Person WHERE (PersonID = @PersonID)";
             using (SqlCommand cmd = new SqlCommand(deleteString, OpenConnection))
             {
-                cmd.Parameters.AddWithValue(" @PersonId", person.PersonId);
+                cmd.Parameters.AddWithValue("@PersonID", person.PersonId);
 
                 var id = (long)cmd.ExecuteNonQuery();
                 person = null;
@@ -912,7 +912,7 @@ namespace Infrastructure
 
         
         public void AddNote(ref Note note)
-            {
+             {
 
 
             string insertStringParam = @"INSERT INTO [Note] (NoteText, PersonID)
@@ -966,7 +966,7 @@ namespace Infrastructure
 
        
         public void UpdateNote(ref Note note)
-        {
+         {
             string updateString =
                 @"UPDATE Note                 
                         SET NoteText= @NoteText  
@@ -984,7 +984,7 @@ namespace Infrastructure
 
         
         public List<Note> GetAllOfAPersonsNotes(ref Person person)
-        {
+          {
 
             string selectString =
                 @"SELECT * FROM   Note INNER JOIN

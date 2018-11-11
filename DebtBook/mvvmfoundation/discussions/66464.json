@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "225790",
+    "ThreadId": "66464",
+    "Html": "<p>In a ViewModel class I use PropertyObserver monitor a Model instance's property changed in the constructor of the ViewModel, the ViewModel instance is created by Reflection, I found the PropertyObserver doesn't work sometimes, but after I move the PropertyObserver defination&nbsp;out of the constructor, it work correctly. I am not sure the reason is because of the weak event.</p>",
+    "PostedDate": "2009-08-20T03:13:31.943-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "225909",
+    "ThreadId": "66464",
+    "Html": "<p>Thanks for your feedback. &nbsp;If you have the time, please log an Issue on the Issue Tracker page of this project, and attach a small demo app showing this problem. &nbsp;I'm not sure how to reproduce it. &nbsp;Thanks!</p>",
+    "PostedDate": "2009-08-20T08:26:06.703-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

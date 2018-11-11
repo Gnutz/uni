@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "213423",
+    "ThreadId": "62858",
+    "Html": "<p>Hi Josh,</p>\r\n<p>While looking at the code I saw the use of the WeakReference Class. This class references an object even if&nbsp;a garbage collection occurs.</p>\r\n<p>I remember this class being described on Jeffrey Richter's excellent book, CLR via C# 2nd Edition. I will copy paste the lines below because they describe exactly what I want to discuss:</p>\r\n<p><em>&quot;...if a garbage collection occurred, the objects<br>that contain the data will be destroyed, and when the program&nbsp; has to <strong>re-create</strong> the data, the <br>program experiences lower performance. <br>The problem with this technique is the following: Garbage collections do not occur when memory <br>is full or close to full. Instead, garbage collections occur whenever generation 0 is full, which occurs <br>approximately after every 256 KB of memory is allocated. So objects are being tossed out of mem-<br>ory much more frequently than desired, and your application's performance suffers greatly. <br>Weak references can be used quite effectively in caching scenarios, but building a good cache<br>algorithm that finds the right balance between memory consumption and speed is very com-<br>plex.&quot; </em><em><span style=\"text-decoration:underline\">(from Jeffrey Richter's excellent book, CLR via C# 2nd Edition)</span></em></p>\r\n<p>Having&nbsp;followed&nbsp;your articles about WPF and MVVM I decided to search on the internet about WPF and WeakReferences.</p>\r\n<p>I quickly found that WeakReferences are used in WPF's data binding mechanism, under the WeakEvent Pattern umbrella.</p>\r\n<p>My question is:</p>\r\n<p>Is it really a necessary<em>/</em>sufficient condition to use WeakReferences and the WeakEvent Pattern in the MVVM Foundation library? Are the benefits clear?</p>\r\n<p>Maybe some memory profiling and perf should happen in first place? Or if you already done this kind of research, can you post it on your blog, or here, (or why not in your next MSDN article).</p>\r\n<p>&nbsp;</p>\r\n<p>Best Regards,</p>\r\n<p>Nikos Baxevanis</p>",
+    "PostedDate": "2009-07-18T12:26:10.61-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "213498",
+    "ThreadId": "62858",
+    "Html": "<p>Nikos,</p>\r\n<p>I am using WeakReferences because I want to avoid having my classes introduce memory leaks. &nbsp;Since a Messenger or PropertyObserver object can live for the lifetime of an app, but the object(s) they reference might not, this is an important implementation detail. &nbsp;In theory I could not use weak references, but that would require the developer to be extremely careful to properly unregister their objects from my types at the right time during an application's life...which isn't always easy to do. &nbsp;The performance implications of using weak references are neglible, and, compared to the great evil of introducing memory leaks, fully justifiable. &nbsp;</p>\r\n<p>With that said, if you prefer to not use weak references, you are free to modify my classes as you see fit.</p>\r\n<p>Thanks,</p>\r\n<p>Josh</p>",
+    "PostedDate": "2009-07-18T22:02:39.837-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

@@ -1,0 +1,39 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": null,
+    "CommentCount": 0,
+    "Custom": null,
+    "Description": "Hello all,\nI don't know if I am right in the MVVM Foundation project with my question. If not let me know, please.\n\nI want to develop a Windows 8.1 Store app. I have a list with several list items and a gauge view. As well the list as the gauge has its own view model. Change the selection in the list must cause a change in the gauge model.\n\nI have no idea how to realize these dependencies between the models. I have googled for a long time but the satisfied solution I could not find. Can anyone help?\n\nBest regards\ngpunkt2016",
+    "LastUpdatedDate": "2016-04-26T03:08:23.513-07:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Unassigned",
+      "Severity": 0,
+      "Id": 0
+    },
+    "ProjectName": "mvvmfoundation",
+    "ReportedDate": "2016-04-26T03:08:23.513-07:00",
+    "Status": {
+      "Name": "Proposed",
+      "Id": 1
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "Update  view model by another view model",
+    "Type": {
+      "Name": "Unassigned",
+      "Id": 5
+    },
+    "VoteCount": 1,
+    "Id": 13443
+  },
+  "FileAttachments": [],
+  "Comments": []
+}

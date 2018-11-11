@@ -1,0 +1,66 @@
+[
+  {
+    "Id": "231694",
+    "ThreadId": "68127",
+    "Html": "<p>hello,</p>\r\n<p>Love the framework.&nbsp; Small but useful.&nbsp;&nbsp; Unfortunately, I've been having a few problems with the RelayCommand, in particular the CanExecute method not being re-queried.&nbsp;&nbsp; The RelayCommand directly registers the CanExecuteChanged event handler with the CommandManager.RequestSuggested event.&nbsp; The MSDN docs say that the CommandManager.RequestSuggested only holds a weak reference to the handler, so shouldn't the RelayCommand also keep a strong reference to the delegate to avoid it being collected?&nbsp; When&nbsp;<span style=\"font-size:x-small;color:#2b91af\"><span style=\"font-size:x-small;color:#2b91af\">CommandManager</span></span><span style=\"font-size:x-small\">.InvalidateRequerySuggested is called, the CanExecuteChanged event stops being raised after a GC, however,&nbsp;for some reason buttons seem ok with this and keep re-quering CanExecute.&nbsp;&nbsp;&nbsp;If I attach my own handler to CanExecuteChanged it is not longer called after a GC.&nbsp; Any ideas?</span></p>\r\n<p>Paul</p>\r\n<p>&nbsp;</p>",
+    "PostedDate": "2009-09-06T20:53:09.003-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "231881",
+    "ThreadId": "68127",
+    "Html": "<p>Hey Paul,</p>\r\n<p>Are you keeping a reference to the RelayCommand as a field somewhere? &nbsp;If not, then I suppose it might be eligible for GC (though I would have suspected that the ICommandSource -- such as a Button -- would root it).</p>\r\n<p>Josh</p>",
+    "PostedDate": "2009-09-07T09:48:55.06-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "231976",
+    "ThreadId": "68127",
+    "Html": "<p>Hi Josh,</p>\r\n<p>The RelayCommand is ok, it's the CanExecuteChanged&nbsp;delegate object passed to the RelayCommand &nbsp;that gets weak referenced, collected and therefore not called. When the Button (or I) attach a CanExecuteChanged handler to the RelayClass, it gets attached to the CommandManager.RequestSuggested event which lets go of the delegate on the next GC - unless I add hold a copy in the RelayCommand it self. &nbsp;</p>\r\n<p>I thought I'd write you a nice unit test to show this, but its not quite so easy as CommandManager.RequestSuggested is invoked on the dispatcher, so we need a DoEvents methods to ensure it does its thing. &nbsp;I have borrowed a DoEvents class from Zhou &nbsp;to make this work. &nbsp;Here's the unit test and required dispatcher helper. &nbsp;</p>\r\n<div style=\"color:Black;background-color:White\">\r\n<pre><span style=\"font-family:'Segoe UI'\"><span style=\"white-space:normal\"><span style=\"font-family:Consolas\"><span style=\"white-space:pre\"><div style=\"color:Black;background-color:White\"><pre>    [TestClass]\r\n    <span style=\"color:Blue\">public</span> <span style=\"color:Blue\">class</span><span style=\"color:MediumTurquoise\"> RelayCommandTests2\r\n    </span>{\r\n        [TestMethod]\r\n        <span style=\"color:Blue\">public</span> <span style=\"color:Blue\">void</span> CanExecuteChangedDelegateLost()\r\n        {\r\n            <span style=\"color:Green\">//we need a dispatcher running</span>\r\n            Thread t = <span style=\"color:Blue\">new</span> Thread( Dispatcher.Run );\r\n            t.Start();\r\n\r\n            <span style=\"color:Green\">//do nothing relay command</span>\r\n            RelayCommand target = <span style=\"color:Blue\">new</span> RelayCommand( () =&gt; { }, () =&gt; <span style=\"color:Blue\">true</span> );\r\n\r\n            <span style=\"color:Green\">//setup a bool that lets us know the event was raised</span>\r\n            <span style=\"color:Blue\">bool</span> canExecuteChangedWasCalled = <span style=\"color:Blue\">false</span>;\r\n            target.CanExecuteChanged += (s, a) =&gt; canExecuteChangedWasCalled = <span style=\"color:Blue\">true</span>;\r\n\r\n            <span style=\"color:Green\">//simulate a change that requires CanExecute to be queried again</span>\r\n            canExecuteChangedWasCalled = <span style=\"color:Blue\">false</span>;\r\n            CommandManager.InvalidateRequerySuggested();\r\n            WpfApplication.DoEvents(); <span style=\"color:Green\">//force the dispatch do its thing</span>\r\n            Assert.IsTrue( canExecuteChangedWasCalled );\r\n\r\n            <span style=\"color:Green\">//now collect GC</span>\r\n            GC.Collect();\r\n\r\n            <span style=\"color:Green\">//and try again</span>\r\n            canExecuteChangedWasCalled = <span style=\"color:Blue\">false</span>;\r\n            CommandManager.InvalidateRequerySuggested();\r\n            WpfApplication.DoEvents();\r\n            Assert.IsTrue( canExecuteChangedWasCalled );\r\n        }\r\n    }\r\n\r\n\r\n    <span style=\"color:Blue\">namespace</span> Sheva.Windows\r\n    {\r\n        <span style=\"color:Gray\">///</span> <span style=\"color:Gray\">&lt;summary&gt;</span>\r\n        <span style=\"color:Gray\">///</span><span style=\"color:Green\"> Encapsulates a Windows Presentation Foundation application model with added functionalities.</span>\r\n        <span style=\"color:Gray\">///</span> <span style=\"color:Gray\">&lt;/summary&gt;</span>\r\n        <span style=\"color:Blue\">public</span> <span style=\"color:Blue\">class</span><span style=\"color:MediumTurquoise\"> WpfApplication : Application\r\n        </span>{\r\n            <span style=\"color:Blue\">private</span> <span style=\"color:Blue\">static</span> DispatcherOperationCallback exitFrameCallback = <span style=\"color:Blue\">new</span>\r\n                 DispatcherOperationCallback(ExitFrame);\r\n\r\n            <span style=\"color:Gray\">///</span> <span style=\"color:Gray\">&lt;summary&gt;</span>\r\n            <span style=\"color:Gray\">///</span><span style=\"color:Green\"> Processes all UI messages currently in the message queue.</span>\r\n            <span style=\"color:Gray\">///</span> <span style=\"color:Gray\">&lt;/summary&gt;</span>\r\n            <span style=\"color:Blue\">public</span> <span style=\"color:Blue\">static</span> <span style=\"color:Blue\">void</span> DoEvents()\r\n            {\r\n                <span style=\"color:Green\">// Create new nested message pump.</span>\r\n                DispatcherFrame nestedFrame = <span style=\"color:Blue\">new</span> DispatcherFrame();\r\n\r\n                <span style=\"color:Green\">// Dispatch a callback to the current message queue, when getting called, </span>\r\n                <span style=\"color:Green\">// this callback will end the nested message loop.</span>\r\n                <span style=\"color:Green\">// note that the priority of this callback should be lower than the that of UI event messages.</span>\r\n                DispatcherOperation exitOperation = Dispatcher.CurrentDispatcher.BeginInvoke(\r\n                    DispatcherPriority.Background, exitFrameCallback, nestedFrame);\r\n\r\n                <span style=\"color:Green\">// pump the nested message loop, the nested message loop will immediately </span>\r\n                <span style=\"color:Green\">// process the messages left inside the message queue.</span>\r\n                Dispatcher.PushFrame(nestedFrame);\r\n\r\n                <span style=\"color:Green\">// If the &quot;exitFrame&quot; callback doesn't get finished, Abort it.</span>\r\n                <span style=\"color:Blue\">if</span> (exitOperation.Status != DispatcherOperationStatus.Completed)\r\n                {\r\n                    exitOperation.Abort();\r\n                }\r\n            }\r\n\r\n            <span style=\"color:Blue\">private</span> <span style=\"color:Blue\">static</span> Object ExitFrame(Object state)\r\n            {\r\n                DispatcherFrame frame = state <span style=\"color:Blue\">as</span> DispatcherFrame;\r\n\r\n                <span style=\"color:Green\">// Exit the nested message loop.</span>\r\n                frame.Continue = <span style=\"color:Blue\">false</span>;\r\n                <span style=\"color:Blue\">return</span> <span style=\"color:Blue\">null</span>;\r\n            }\r\n        }\r\n</pre>\r\n</div>\r\n<br></span></span></span></span></pre>\r\n</div>\r\n<p>&nbsp;</p>\r\n<p>This test fails after the GC. &nbsp;To make this test pass, we need to save the CanExecuteChanged delegate in a field in the RelayCommand, as well as passing it on. &nbsp;Is that a reasonable change?</p>\r\n<p>Paul</p>",
+    "PostedDate": "2009-09-07T15:59:31.363-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "231981",
+    "ThreadId": "68127",
+    "Html": "<p>Wow. &nbsp;I can't believe this issue was never caught until now. &nbsp;Great catch!!</p>\r\n<p>I'll add the fix asap.</p>\r\n<p>Thanks!<br>Josh&nbsp;</p>",
+    "PostedDate": "2009-09-07T16:22:19.203-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "232242",
+    "ThreadId": "68127",
+    "Html": "<p>Hi,</p>\r\n<p>I tossed this issue around the WPF Disciples group, and came to the conclusion that this defect should not (cannot?) be fixed. &nbsp;By fixing the issue you point out, it creates a memory leak due to a defect in WPF. For more information about this decision, please read the Disciples thread.</p>\r\n<p><a href=\"http://groups.google.com/group/wpf-disciples/browse_thread/thread/4b18a9de327be281\">http://groups.google.com/group/wpf-disciples/browse_thread/thread/4b18a9de327be281</a></p>\r\n<p>Thanks,</p>\r\n<p>Josh</p>",
+    "PostedDate": "2009-09-08T08:15:22.38-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "232431",
+    "ThreadId": "68127",
+    "Html": "<p>Hi,</p>\r\n<p>Ok - sounds reasonable. &nbsp;Documenting that CanExecuteChanged is held by a weak reference makes it clear. &nbsp; The WPF controls explicitly hang onto the delegate they pass in so they are unaffected. &nbsp;If you're writing a ICommandSource, you must explicitly save a reference to the CanExecuteChanged&nbsp;delegate you hook/unhook it. &nbsp; If you rely on the implicit add/remove handler behaviour in c#, the code will not be leaky, but the delegate will stop getting called after a GC.</p>\r\n<p>&nbsp;eg. &nbsp;Add/Remove handler code that will stop getting called after GC</p>\r\n<div style=\"color:Black;background-color:White\">\r\n<pre><span style=\"color:Green\">//to hook</span>\r\ndoStuff.CanExecuteChanged += doStuff_CanExecuteChanged;\r\n\r\n<span style=\"color:Green\">//to unhook</span>\r\ndoStuff.CanExecuteChanged -= doStuff_CanExecuteChanged;\r\n\r\n.....\r\n<span style=\"color:Blue\">private</span> <span style=\"color:Blue\">void</span> doStuff_CanExecuteChanged(<span style=\"color:Blue\">object</span> sender, EventArgs e)\r\n<p>&nbsp;</p><p>Saving an explicit reference to delegate (doStuff_CanExecuteChanged), although not obvious, will correct this. &nbsp;</p><p>Thanks for the speedy turn around &amp; effort put into this.<br>Paul</p></pre>\r\n</div>",
+    "PostedDate": "2009-09-08T15:53:30.347-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "234044",
+    "ThreadId": "68127",
+    "Html": "<p>I've been trying to follow the discussion here and at the Disciples group, but I'm still a bit fuzzy on the solution.&nbsp; One question - is this the same issue that Nathan Nesbit blogged about <a href=\"http://blogs.msdn.com/nathannesbit/archive/2009/05/29/wpf-icommandsource-implementations-leak-memory.aspx\">here</a>? i.e. that led to his need for the CommandProxy class, or am I mixing up issues?</p>\r\n<p>Tom.</p>",
+    "PostedDate": "2009-09-13T09:30:42.79-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "903320",
+    "ThreadId": "68127",
+    "Html": "<p>This took me a long time to find, but thank you so so much!</p>",
+    "PostedDate": "2012-08-23T18:16:38.463-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

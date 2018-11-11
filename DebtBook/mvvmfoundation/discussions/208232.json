@@ -1,0 +1,26 @@
+[
+  {
+    "Id": "427056",
+    "ThreadId": "208232",
+    "Html": "<p>Hi Josh,</p>\r\n<p>is there a reason why you didn't expose the Messenger through an interface? I just stumbled upon this as I was writing a unit test to verify that one of my classes registered correctly with the Messenger. I then added this interface to the MVVM Foundation solution to make it easier to replace it with a mock object:</p>\r\n<p>\r\n<div style=\"color:Black;background-color:White\">\r\n<pre><span style=\"color:Blue\">using</span> System;\r\n\r\n<span style=\"color:Blue\">namespace</span> MvvmFoundation.Wpf\r\n{\r\n\t<span style=\"color:Blue\">public</span> <span style=\"color:Blue\">interface</span> IMessenger\r\n\t{\r\n\t\t<span style=\"color:Blue\">void</span> NotifyColleagues(<span style=\"color:Blue\">string</span> message, <span style=\"color:Blue\">object</span> parameter);\r\n\t\t<span style=\"color:Blue\">void</span> NotifyColleagues(<span style=\"color:Blue\">string</span> message);\r\n\t\t<span style=\"color:Blue\">void</span> Register(<span style=\"color:Blue\">string</span> message, Action callback);\r\n\t\t<span style=\"color:Blue\">void</span> Register&lt;T&gt;(<span style=\"color:Blue\">string</span> message, Action&lt;T&gt; callback);\r\n\t}\r\n}\r\n\r\n</pre>\r\n</div>\r\n</p>",
+    "PostedDate": "2010-04-03T07:28:47.013-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "427057",
+    "ThreadId": "208232",
+    "Html": "<p>No, there's no reason why. &nbsp;I just never saw the need for it, I guess. &nbsp;You raise a good point. &nbsp;I'll add it to my TODO list.</p>\r\n<p>Thanks,</p>\r\n<p>Josh</p>",
+    "PostedDate": "2010-04-03T07:31:34.69-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "427059",
+    "ThreadId": "208232",
+    "Html": "<p>Great, thanks for the info.</p>\r\n<p>-- Matthias</p>\r\n<p>&nbsp;</p>",
+    "PostedDate": "2010-04-03T07:38:01.003-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

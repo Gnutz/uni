@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "213200",
+    "ThreadId": "62809",
+    "Html": "<p>The ViewModelBase class, at present, is just a nice implementation of the INotifyPropertyChanged interface.&nbsp;</p>\r\n<p>This is useful in places other than ViewModel.&nbsp; Some Model classes can use it where the View directly binds to the model for simple display of output-only values that don't need any transformation by the ViewModel, or, for example,&nbsp;are bool that control visibility, etc.</p>\r\n<p>I propose renaming the class to be PropertyChangedBase to reflect its wider applicability.</p>\r\n<p>Matt</p>",
+    "PostedDate": "2009-07-17T14:05:08.597-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "213241",
+    "ThreadId": "62809",
+    "Html": "<p>Great suggestion, Matt. &nbsp;I renamed ViewModelBase to ObservableObject. &nbsp;</p>\r\n<p>Thanks,</p>\r\n<p>Josh</p>",
+    "PostedDate": "2009-07-17T16:48:14.94-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

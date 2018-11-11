@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "225299",
+    "ThreadId": "66320",
+    "Html": "<p>The &quot;RaisePropertyChanged&quot; method of the ObservableObject class does not check, whether the PropertyChangedEvent is fired on the CurrentDispatcher.<br>In my opinion these events should always be fired on the main thread, as it is very likely that some UIElement has a binding to it which would in that case cause an exception.</p>\r\n<p>--&gt; !VerifyAccess() --&gt; Application.Current.Dispatcher.BeginInvoke(...)</p>\r\n<p>What do you think about that?</p>",
+    "PostedDate": "2009-08-19T00:14:10.6-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "225520",
+    "ThreadId": "66320",
+    "Html": "<p>There's no need to marshal the call over to the UI thread. &nbsp;Property bindings in WPF automatically marshal property change notifications to the UI thread, if necessary.</p>",
+    "PostedDate": "2009-08-19T10:15:01.077-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

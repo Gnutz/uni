@@ -1,0 +1,50 @@
+[
+  {
+    "Id": 5079,
+    "Title": "(Messenger) Mixing registered Action types for the same message not detected/prevented."
+  },
+  {
+    "Id": 5155,
+    "Title": "Test fails in Release build"
+  },
+  {
+    "Id": 5257,
+    "Title": "Tracking the Source of a Message inside of Messenger"
+  },
+  {
+    "Id": 5448,
+    "Title": "Messenger.NotifyColleagues invokes registered delegates in reverse order."
+  },
+  {
+    "Id": 5453,
+    "Title": "PropertyObserver: added handlers that pass property name & CollectionObserver"
+  },
+  {
+    "Id": 5734,
+    "Title": "ViewModels not being thrown away"
+  },
+  {
+    "Id": 5808,
+    "Title": "Unregistering from Messenger"
+  },
+  {
+    "Id": 6139,
+    "Title": "ObservableObject.VerifyPropertyName excludes static or protected properties"
+  },
+  {
+    "Id": 8765,
+    "Title": "unloading/dealloc usercontrol DataContext"
+  },
+  {
+    "Id": 13085,
+    "Title": "Messenger doesn't always callback function"
+  },
+  {
+    "Id": 13427,
+    "Title": "PropertyObserver doing foreach handler invoke N number of times"
+  },
+  {
+    "Id": 13443,
+    "Title": "Update  view model by another view model"
+  }
+]

@@ -1,0 +1,34 @@
+[
+  {
+    "Id": "267615",
+    "ThreadId": "78223",
+    "Html": "<p>I'm having some problems using the Messenger. I have a View and ViewModel. When the View is created it registers for Message A. When the View Model receives a particular command a notification of Message A is sent by the View Model, and the View creates a new dialog.</p>\r\n<p>The problem comes when the View is reopened (after being closed down). When the View is reopened it once again registers for Message A. But&nbsp;now when the View Model receives a particular command and a notification is sent by the View model, there are two actions. The new action is fine and is the desired one, but the old action (from the first time the View was created) is a problem because its target, the original View, is awaiting garbage collection and so invoking the action causes unwanted results.</p>\r\n<p>The check in Messenger to ascertain whether the action's target is dead does not help in this situation because the target&nbsp;is awaiting garbage collection, but has yet to be garbage collected.</p>\r\n<p>Is there a way to overcome this issue short of (a) implementing Unregister on Messenger, or (b) limiting message-action mapping to one action with a given signature for each message?</p>",
+    "PostedDate": "2009-12-15T08:52:41.733-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "268408",
+    "ThreadId": "78223",
+    "Html": "<p>The solution I have used to this problem is to modify Messenger to include an optional&nbsp;guard function alongside the action. During notification the action is then only called if the guard check passes.</p>\r\n<p>This solves the problem in the case of an expired View, because the guard can check whether the View is active and if the View is inactive the action is not invoked. This allows for an expired View to be garbage collected naturally.</p>",
+    "PostedDate": "2009-12-17T02:01:16.463-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "507344",
+    "ThreadId": "78223",
+    "Html": "<p>Can you explain exactly what you did? &nbsp;How do you know if the view is active? or inactive? &nbsp;What is the guard you created?</p>\r\n<p>&nbsp;</p>",
+    "PostedDate": "2010-10-14T11:31:48.433-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "602764",
+    "ThreadId": "78223",
+    "Html": "<p>I modified Messenger.WeakAction to include a guardMethod, guardTargetRef and guardDelegateType and then created overloads of Messenger.Register to register a Func&lt;bool&gt; (i.e. the guard)&nbsp;alongside the callback. When NotifyColleagues is called the action is only invoked if the guard succeeds (or if the guard is null).</p>\r\n<p>The guard I use to find out whether a View is active is simply the IsVisible property.</p>",
+    "PostedDate": "2011-04-26T01:07:03.59-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

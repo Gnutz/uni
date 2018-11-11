@@ -1,0 +1,90 @@
+[
+  {
+    "Id": "256513",
+    "ThreadId": "74954",
+    "Html": "<p>&nbsp;</p>\r\n<p>Hi, Just wondering if there is&nbsp;a time-line for some kind of release and template availablility with this changes.<br>I want to use this framework and need a starting point...</p>\r\n<p>Are you expecting major changes to current source code or further developement/improvement is along the same line!<br>Please let use know.</p>\r\n<p>Thanks!</p>",
+    "PostedDate": "2009-11-12T15:42:39.047-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "259282",
+    "ThreadId": "74954",
+    "Html": "<p>I do not expect to be making any significant changes to MVVM Foundation any time soon.</p>\r\n<p>Josh</p>",
+    "PostedDate": "2009-11-20T21:24:21.48-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "267043",
+    "ThreadId": "74954",
+    "Html": "<p>Hi, Josh</p>\r\n<p>&nbsp;&nbsp; I am trying to bind the window closing event in my View, but as button has command property directly;&nbsp; closing event does not.&nbsp;&nbsp;How do I bind ( handle windowClosing ) event with this framework ?<br>I reviewed the number example, but they used buttons only , may be you can shed some light on other objects where there is no command available out of the box ?</p>\r\n<p>Thanks!</p>",
+    "PostedDate": "2009-12-14T07:24:23.017-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "267085",
+    "ThreadId": "74954",
+    "Html": "<p>It sounds like you need Laurent's <a href=\"http://geekswithblogs.net/lbugnion/archive/2009/11/05/mvvm-light-toolkit-v3-alpha-2-eventtocommand-behavior.aspx\">EventToCommand</a> behavior.</p>",
+    "PostedDate": "2009-12-14T08:34:15.433-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "267146",
+    "ThreadId": "74954",
+    "Html": "<p>Thanks Josh,&nbsp; but how does that fit with this framework ?</p>\r\n<p>I am 10/15% in alrady with this framework!&nbsp; Should I flip to MVVM light toolkit ?</p>\r\n<p>does it have same MVVM &quot;implementation&quot; as yours ? or you are suggesting just stripping out the eventToCommand-related code and using it with your framework ?</p>\r\n<p>&nbsp;</p>",
+    "PostedDate": "2009-12-14T09:59:52.623-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "267154",
+    "ThreadId": "74954",
+    "Html": "<p>These frameworks are just &quot;suggestions.&quot; &nbsp;They're not mutually exclusive.</p>",
+    "PostedDate": "2009-12-14T10:02:55.397-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "267542",
+    "ThreadId": "74954",
+    "Html": "<p>Ok, cool I will give it a shot!</p>\r\n<p>Thanks for all your contributions to the community!</p>",
+    "PostedDate": "2009-12-15T05:43:03.44-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "269985",
+    "ThreadId": "74954",
+    "Html": "<p>Hay Josh,</p>\r\n<p>&nbsp;&nbsp; I tried that MVVM Light Toolkit, but it did not work for WPF on m machine.<span style=\"text-decoration:line-through\"> currently it is dead in water</span>. It is so much silverlight oriented and wpf part didn't compile/work.</p>\r\n<p>somehow I could not run it on my environment.</p>\r\n<p>In this is case it is Alpha release (as specially EventToCommand feature)&nbsp; so we expect issues!</p>\r\n<p>so I don't have any option unless I install silverlight/blend which I don't have license for.&nbsp;</p>\r\n<p>I don't know if you can do much about this but just want to bring it to your attention that the WpfLightToolkit&nbsp; did not work (for me) unfortunately !</p>\r\n<p>May be you can point me to some other projects/links that has event to command for MVVM ? or should I forget about this and start coding code behind way ?</p>\r\n<p>&nbsp;</p>\r\n<p>Thanks!</p>",
+    "PostedDate": "2009-12-22T10:34:29.427-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "270044",
+    "ThreadId": "74954",
+    "Html": "<p>@<a id=\"ctl00_ctl00_MasterContent_Content_PostRepeater_ctl14_UserNameLink\" style=\"text-decoration:underline;color:#3e62a6\" href=\"http://www.codeplex.com/site/users/view/sendi_t34\">sendi_t34</a></p>\r\n<p>Hi,</p>\r\n<p>I am the developer of the MVVM Light Toolkit. I did receive an email from you one week ago regarding the sample in question. I am not sure what you did wrong, but the samples do work correctly.</p>\r\n<p>I would like to remind you that both Josh and I are maintaining and developing our frameworks on our free time, and that both of us are very busy professionals with a lot of obligations. The fact that I was not able to reply to your email right away does not mean that the MVVM Light toolkit is not supported. In fact, I post samples regularly&nbsp;on my blog, and I do answer to a lot of emails regarding the toolkit's features (your email was just one of the many I get). If one or the other sample does not work properly (we are, after all human), it does not mean that the project is &quot;dead in the water&quot;. It just means that we have to sort our priorities. In the moment, I am very busy with work, and in addition I write a programming book. I am sure that you will understand that sometimes it is a little overwhelming, and that a small delay in answering emails can happen.</p>\r\n<p>I will investigate the error that you report, and check what is happening. In the mean time, I recommend that you install the latest version of my toolkit manually, as described here:</p>\r\n<p><a href=\"http://galasoft.ch/mvvm/installing/manually/\">http://galasoft.ch/mvvm/installing/manually/</a></p>\r\n<p>Then, simply create a new MVVM Light project for WPF, and you should be able to get EventToCommand to work in no time.&nbsp;</p>\r\n<p>I will get back to you for the sample issue.</p>\r\n<p>Thanks,</p>\r\n<p>Laurent</p>",
+    "PostedDate": "2009-12-22T13:31:19.553-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "270099",
+    "ThreadId": "74954",
+    "Html": "<p>Thanks for replying Laurent.</p>\r\n<p>It worked, after I re-installed .Net 3.5 sp1. It must be something wrong that I did.</p>\r\n<p>My apologies Laurent.</p>\r\n<p>Thanks!</p>",
+    "PostedDate": "2009-12-22T16:46:25.167-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "270391",
+    "ThreadId": "74954",
+    "Html": "<p>Thanks for the note, happy to hear you solve the issue (and also happy to hear it was not in my code ;)</p>\r\n<p>Cheers,</p>\r\n<p>Laurent</p>",
+    "PostedDate": "2009-12-23T11:49:32.28-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

@@ -1,0 +1,70 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": null,
+    "CommentCount": 0,
+    "Custom": null,
+    "Description": "The VerifyPropertyName debugging code fails if used on a static or protected properties.\nThis changes the test to work for the more general case. (It allows private properties but there isn't an *easy* way to exclude them.)\n \nMatt Heffron\n \n    public void VerifyPropertyName(string propertyName)\n    {\n      // If you raise PropertyChanged and do not specify a property name,\n      // all properties on the object are considered to be changed by the binding system.\n      if (String.IsNullOrEmpty(propertyName))\n        return;\n \n      // Verify that the property name matches a real property on this object.\n      try\n      {\n        PropertyInfo propertyInfo = this.GetType().GetProperty(propertyName,\n                                                             BindingFlags.Public | BindingFlags.NonPublic |\n                                                             BindingFlags.Static | BindingFlags.Instance |\n                                                             BindingFlags.FlattenHierarchy);\n        if (propertyInfo == null)\n        {\n          string msg = \"Invalid property name: \" + propertyName;\n \n          if (this.ThrowOnInvalidPropertyName)\n            throw new ArgumentException(msg);\n          else\n            Debug.Fail(msg);\n        }\n      }\n      catch (AmbiguousMatchException)\n      {\n        return;   // Well...the name *IS* there...\n      }\n    }",
+    "LastUpdatedDate": "2013-02-21T16:05:48.99-08:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Low",
+      "Severity": 50,
+      "Id": 1
+    },
+    "ProjectName": "mvvmfoundation",
+    "ReportedDate": "2009-11-03T19:57:38.567-08:00",
+    "Status": {
+      "Name": "Proposed",
+      "Id": 1
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "ObservableObject.VerifyPropertyName excludes static or protected properties",
+    "Type": {
+      "Name": "Issue",
+      "Id": 3
+    },
+    "VoteCount": 1,
+    "Id": 6139
+  },
+  "FileAttachments": [],
+  "Comments": [
+    {
+      "Message": "Matt,\r\n\r\nThanks for your feedback.\r\n\r\nI had considered adding support for non-public properties, but it presented oddities so I didn't do it.  I built ObservableObject to make it easy to notify the WPF binding system of property changes.  A Binding can only bind to public properties on an object, so it seemed like a bug to consider a protected/internal/private property as \"valid\" when raising PropertyChanged.  Suppose I have an object with two properties: PublicProp and ProtectedProp (whose access modifiers are implied by the property names).  If I accidentally pass \"ProtectedProp\" to RaisePropertyChanged() from the PublicProp setter, it would be considered valid.  That might seem like a bug.  Perhaps you can convince me otherwise...\r\n\r\nPlease explain the static property scenario.  What use case do you have in mind?\r\n\r\nThanks,\r\nJosh",
+      "PostedDate": "2009-11-03T22:08:16.317-08:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "I have several ViewModel classes that have static properties exposing \"almost constant\" collections that I bind to.  (The collection values are constant, but need to be sorted based on the CurrentCulture which can be changed on-the-fly.) I need to be able to RaisePropertyChanged() on those properties when the CurrentCulture changes so WPF gets the reordered collection.\r\n\r\nI'm willing to concede non-public properties as a potential bug. I don't need them. (I sort-of went overboard with the GetProperty flags.)",
+      "PostedDate": "2009-11-04T12:49:55.603-08:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "I see what you mean, Matt.  I am thinking of maybe adding a static version of RaisePropertyChanged.  Alternatively, could you have those static collections be ObservableCollections (or ReadOnlyObservableCollections) to get the change notifications you need?  Thanks!\r\n\r\nJosh",
+      "PostedDate": "2009-11-06T08:19:01.717-08:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "On second thought, how would the binding system know which class the property belongs to?  If you were to raise PropertyChanged where e.PropertyName=\"FooProperty\" and sender=null, how would a binding know which class FooProperty is on?  I've never tried this, and am not sure if it would even work.\r\n\r\nJosh",
+      "PostedDate": "2009-11-06T08:21:20.933-08:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "But the RaisePropertyChanged, at least in my case, does pass an instance of the class as the sender.  (The class is not static, but the property is.)",
+      "PostedDate": "2009-11-06T10:31:55.373-08:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2013-02-21T16:05:48.99-08:00",
+      "Id": -2147483648
+    }
+  ]
+}

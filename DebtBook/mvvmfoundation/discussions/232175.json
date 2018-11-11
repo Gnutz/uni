@@ -1,0 +1,10 @@
+[
+  {
+    "Id": "511997",
+    "ThreadId": "232175",
+    "Html": "\r\n<p>Hi All,</p>\r\n<p>Is it possible to highlight a particular cell in datagrid using MVVM pattern in WPF.</p>\r\n<p>Please note that I am trying to loop through all the rows in an observable collection before binding to the datagrid. I want to highlight cells based on some condition.</p>\r\n<p>Any help on this?</p>\r\n<p>Regards</p>\r\n<p>karloduniyamuthi</p>\r\n",
+    "PostedDate": "2010-10-25T02:25:33.64-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

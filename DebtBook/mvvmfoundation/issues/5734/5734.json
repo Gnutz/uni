@@ -1,0 +1,50 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": null,
+    "CommentCount": 0,
+    "Custom": null,
+    "Description": "Hey i cant find a good place to post this, so ill try here first.\nIm having a problem with my ViewModels never being GC'ed until the app is shutdown. This is a major issue! Can you pros lend some ideas as to exactly what could be the cause of them never being released? Im using a tabbed style app, where you can open as many Entity tabitems(viewmodels) as you want, and then close them when youre done. The examples Ive seen from disciples they always limit the number of open VMs at once...am I missing something, doing something wrong? Im using Joshs/Marlons Mediator to send out messages, with a static Mediator singleton in my base viewmodel...could that be a culprit?\n \nThanks!\nJustin",
+    "LastUpdatedDate": "2013-02-21T16:05:49.543-08:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Low",
+      "Severity": 50,
+      "Id": 1
+    },
+    "ProjectName": "mvvmfoundation",
+    "ReportedDate": "2009-10-09T12:10:44.527-07:00",
+    "Status": {
+      "Name": "Proposed",
+      "Id": 1
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "ViewModels not being thrown away",
+    "Type": {
+      "Name": "Issue",
+      "Id": 3
+    },
+    "VoteCount": 1,
+    "Id": 5734
+  },
+  "FileAttachments": [],
+  "Comments": [
+    {
+      "Message": "It could be any number of things in the app.  If you can create a simple demo application that consistently causes a memory leak due to one of the classes in MVVM Foundation, please send it to me and I will investigate.  Otherwise, it's impossible for me to even start providing suggestions on how to plug the memory leak in your app.\r\n\r\nJosh",
+      "PostedDate": "2009-10-14T11:27:37.873-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2013-02-21T16:05:49.543-08:00",
+      "Id": -2147483648
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+[
+  {
+    "Id": "505898",
+    "ThreadId": "230548",
+    "Html": "<p>I know that I am supposed to use Messenger/MVVM Mediator pattern for this, but I don't quite understand the workings/structure of how I can implement that. Are there any examples that will help?</p>",
+    "PostedDate": "2010-10-12T02:29:07.53-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1008340",
+    "ThreadId": "230548",
+    "Html": "How did you solve this situation? It´s a typical scenario, but I still didn't figure it out. Thanks in advance.<br />\n",
+    "PostedDate": "2013-02-28T09:52:15.28-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1042022",
+    "ThreadId": "230548",
+    "Html": "Here is an example that I have used. In this example I am using MVVM Foundation Messenger to show a different view. <br />\n<br />\nYou will have to do the following in a ViewModel where you want to send the message from. In my example, I am sending a message and passing a parameter (name of another View - it can be any object) <br />\n<pre><code> Mediator.NotifyColleagues&lt;string&gt;(MediatorMessages.ShowInterface, &quot;BidQueryResultInterface&quot;);</code></pre>\n\nMediator.NotifyColleagues is a Messenger method that notifies all registered ViewModels (this will be covered shortly). MediatorMessages.ShowInterface is just a class and a string constant that I use for passing the messages around. Much easier then typing the name every time. The example of this class is below: <br />\n<pre><code>public static class MediatorMessages\n{\n    public const string ShowInterface = &quot;ShowInterface&quot;;\n}</code></pre>\n\nNow on to the receiving end. In another ViewModel we have to register the method that will be receiving these messages. Note that in the constructor of your ViewModel you need to register the Messenger:<br />\n<pre><code>this.Mediator.Register(this);</code></pre>\n\nYou decorate the method that will receive the messages as shown below. The definition of this would match the Message you are sending. I am showing the one that matches the example I used:<br />\n<pre><code>[MediatorMessageSink(MediatorMessages.ShowInterface, ParameterType = typeof(string))]\nprivate void ShowInterface(string interfaceType)\n{\n    //The code to handle the Message goes here\n}</code></pre>\n\nFor my purposes to show the Dialog I stored the interfaceType into a Parameter (InterfaceName) to which my ShellView is binded to. In the ShellView I use DataTemplates to decide which DialogView to show (based on the InterfaceName). For each Dialog that the application would show I have the appropriate View and ViewModel. The responses from the Dialog are routed back to the ViewModel that sent the message. Unfortunately I do not currently have an example for this last part, but if you are having issues figuring things out, I could whip one up. <br />\n<br />\nHope this helped! Feel free to reply back if you have any questions, I'll try and help if I can. <br />\n",
+    "PostedDate": "2013-05-10T11:34:35.793-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

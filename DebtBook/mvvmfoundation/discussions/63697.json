@@ -1,0 +1,34 @@
+[
+  {
+    "Id": "216579",
+    "ThreadId": "63697",
+    "Html": "<p>I have been following most of the different approaches to the MVVM pattern and I have yet found one that really lends itself well to using a top level system such as a Ribbon control.</p>\r\n<p>So then the question then comes into play what would be the best approach to using some of the more advance controls for a menu system such as the &lsquo;Infragistics WPF Ribbon&rdquo; control?</p>",
+    "PostedDate": "2009-07-27T16:02:34.89-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "217968",
+    "ThreadId": "63697",
+    "Html": "<p>Nice to see that this is just another post that gets no answers.</p>\r\n<p>This is one of the main problems that has not been solved with the MVVM pattern.</p>\r\n<p>Anyone seen a good way to implement top level menu's using this pattern?</p>",
+    "PostedDate": "2009-07-31T05:15:58.383-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "218089",
+    "ThreadId": "63697",
+    "Html": "<p>The world doesn't owe you answers.</p>",
+    "PostedDate": "2009-07-31T10:04:14.607-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "218099",
+    "ThreadId": "63697",
+    "Html": "<p>Without a good solution&nbsp;to making frameworks such as yours (which by the way I do like) work with Main level menus none of these frameworks will&nbsp;work for others like me that have comitments to our users.</p>\r\n<p>Thanks, for listening.</p>",
+    "PostedDate": "2009-07-31T10:26:24.55-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

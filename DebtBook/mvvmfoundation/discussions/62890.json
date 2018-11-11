@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "213546",
+    "ThreadId": "62890",
+    "Html": "<p>I have a general question about where to put the commands.</p>\r\n<p>I have a MenuBar with a ViewModel that represent him, A ContextMenu with a ViewModel.&nbsp; and some other bottons in another view.</p>\r\n<p>There is some commands that are common for all the ViewModels.&nbsp; What is the best practice to deal with this situation?</p>\r\n<p>1. Every ViewModel have an instance of the command and in the Execute call for a common logic.</p>\r\n<p>2. There is a&nbsp;common entity (I don't have a name for it) that&nbsp;holds all the instances of the commands,&nbsp;the commands are binded to the view through the ViewModel,</p>\r\n<p>in the command Execute we use the Messanger to send a message for the one how know what to do.</p>\r\n<p>&nbsp;</p>\r\n<p>I have a lot of duplicate commands in the ViewModels, and I want to get rid of it.</p>\r\n<p>Thanks for you comments.</p>\r\n<p>Josh I will appreciate if you could ask your&nbsp;fellows Diciples&nbsp;this question.</p>\r\n<p>Ran Trifon&nbsp;</p>\r\n<p>&nbsp;</p>",
+    "PostedDate": "2009-07-19T07:26:56.2-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "219189",
+    "ThreadId": "62890",
+    "Html": "<p>face similar problem,</p>\r\n<p>Should use the messenger to communicate between VM for command handling or let prop observer monitor on VM 'sown param and state ?</p>\r\n<p>looking forward to suggestion</p>",
+    "PostedDate": "2009-08-04T04:07:11.417-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

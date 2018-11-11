@@ -1,0 +1,26 @@
+[
+  {
+    "Id": "224786",
+    "ThreadId": "66173",
+    "Html": "<p>And why use this over Prism?&nbsp; aka&nbsp; Composite WPF from P&amp;P.</p>",
+    "PostedDate": "2009-08-18T00:32:09.72-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "225013",
+    "ThreadId": "66173",
+    "Html": "<p>Prism exists to help developers create composite applications with WPF. &nbsp;MVVM Foundation does not have such a lofty agenda. &nbsp;My library certainly has some functional overlap with Prism, but that is about all they have in common. &nbsp;Most MVVM apps that I work on end up using the same core set of classes, so I decided to package them up into a library and share it with others. &nbsp;If you prefer the Prism way of doing things, then by all means go with Prism.</p>",
+    "PostedDate": "2009-08-18T09:45:55.463-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "225105",
+    "ThreadId": "66173",
+    "Html": "<p>thanks for the info.&nbsp; yeah, its not about a preference one way or another, just important to understand the differences and purposes.&nbsp; There is always a place for things.&nbsp; Prism may be overkill where MVVM Foundation may be the perfect fit (and much more simple to grasp I imagine).&nbsp;&nbsp; Either way, Prism wouldnt be able to function without implementing MVVM I think, and is has things like eventing, etc, so thats what sparked the curiosity here.&nbsp; Cool stuff.</p>",
+    "PostedDate": "2009-08-18T12:32:51.123-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

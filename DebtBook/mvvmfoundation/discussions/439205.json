@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "1025937",
+    "ThreadId": "439205",
+    "Html": "Hi,\r<br />\n<br />\nI use the MVVM Foundation Messenger class to communicate between my ViewModels. This works fine. \r<br />\nHow ever I would like to pass a parameter to it as well but I can't find how to retrieve it.<br />\n<pre><code> ViewModelCommunication.Messaging.NotifyColleagues(ViewModelCommunication.LogInChanged, &quot;TEST&quot;);</code></pre>\n\nThe parameter is here the string &quot;TEST&quot;. How do I retrieve it in the registered ViewModel?<br />\n<pre><code>ViewModelCommunication.Messaging.Register(ViewModelCommunication.LogInChanged, param =&gt; { this.aProperty = (string)param; });</code></pre>\n\nThis doesn't work. I guess it is simple but I can't find it. Does someone have an example?<br />\n",
+    "PostedDate": "2013-04-05T02:04:58.94-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1025943",
+    "ThreadId": "439205",
+    "Html": "Found it:<br />\n<pre><code>ViewModelCommunication.Messaging.Register(ViewModelCommunication.LogInChanged, (Action&lt;String&gt;)(param =&gt; { this.Test = (string)param; }));</code></pre>\n\nThis fills my property Test with the value &quot;TEST&quot;.<br />\n",
+    "PostedDate": "2013-04-05T02:17:27.99-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

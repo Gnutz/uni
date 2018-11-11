@@ -1,0 +1,20 @@
+﻿<Window x:Class="ViewLayer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ViewLayer"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="200">
+    <Grid>
+        <Label Content="Parts:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <ListBox HorizontalAlignment="Left" Margin="10,42,0,50" VerticalAlignment="Top" Height="180" Width="100"/>
+        <!--ItemsSource="{Binding }" IsSynchronizedWithCurrentItem="True"
+        SelectedIndex="{Binding Path=CurrentIndex}"
+        DisplayMemberPath="CodeName" Name="lbxAgents" Grid.Column="1" 
+        Margin="9" -->
+
+        <Button Content="Add" HorizontalAlignment="Right" Margin="10,10,10,0" VerticalAlignment="Top"/>
+        <!--Command="{Binding AddpartsCommand-->
+    </Grid>
+</Window>

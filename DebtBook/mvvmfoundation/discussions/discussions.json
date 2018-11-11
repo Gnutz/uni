@@ -1,0 +1,252 @@
+[
+  {
+    "Id": "62580",
+    "Title": "Exception handing in PropertyObserver<>::GetPropertySource()",
+    "LatestDate": "2009-07-16T07:41:50.37-07:00"
+  },
+  {
+    "Id": "62809",
+    "Title": "Suggestion: Rename ViewModelBase to PropertyChangedBase",
+    "LatestDate": "2009-07-17T16:48:14.94-07:00"
+  },
+  {
+    "Id": "62830",
+    "Title": "ObservableObject : IDisposable ",
+    "LatestDate": "2009-07-17T23:02:58.31-07:00"
+  },
+  {
+    "Id": "62858",
+    "Title": "WeakReference Class",
+    "LatestDate": "2009-07-18T22:02:39.837-07:00"
+  },
+  {
+    "Id": "62890",
+    "Title": "Handeling Commands in MVVM",
+    "LatestDate": "2009-08-04T04:07:11.417-07:00"
+  },
+  {
+    "Id": "62976",
+    "Title": "Alternative to ObservableObject",
+    "LatestDate": "2009-08-06T08:54:48.873-07:00"
+  },
+  {
+    "Id": "63192",
+    "Title": "PropertyObserver for ObservableCollection",
+    "LatestDate": "2009-08-13T12:39:51.987-07:00"
+  },
+  {
+    "Id": "63486",
+    "Title": "Suggestion on Messenger",
+    "LatestDate": "2009-07-28T12:33:22.677-07:00"
+  },
+  {
+    "Id": "63697",
+    "Title": "Main window controls",
+    "LatestDate": "2009-07-31T10:26:24.55-07:00"
+  },
+  {
+    "Id": "66173",
+    "Title": "How is this different from Prism?",
+    "LatestDate": "2009-08-18T12:32:51.123-07:00"
+  },
+  {
+    "Id": "66320",
+    "Title": "ObservableObject.RaisePropertyChanged should call VerifyAccess()",
+    "LatestDate": "2009-08-19T10:15:01.077-07:00"
+  },
+  {
+    "Id": "66464",
+    "Title": "PropertyObserver doesn't work correctly sometimes",
+    "LatestDate": "2009-08-20T08:26:06.703-07:00"
+  },
+  {
+    "Id": "66606",
+    "Title": "Unit a Relay Command",
+    "LatestDate": "2009-08-21T07:53:50.307-07:00"
+  },
+  {
+    "Id": "68074",
+    "Title": "Differences between MVVM Foundation and MVVM Toolkit?",
+    "LatestDate": "2009-09-08T11:25:54.01-07:00"
+  },
+  {
+    "Id": "68127",
+    "Title": "CanExcuteChanged",
+    "LatestDate": "2012-08-23T18:16:38.463-07:00"
+  },
+  {
+    "Id": "71402",
+    "Title": "Only invoke single command's attached controls??",
+    "LatestDate": "2009-10-08T12:16:42.013-07:00"
+  },
+  {
+    "Id": "71639",
+    "Title": "RelayCommand and CommandParameters",
+    "LatestDate": "2009-10-21T00:59:43.217-07:00"
+  },
+  {
+    "Id": "74954",
+    "Title": "Is there a time-line for some kind of release ?",
+    "LatestDate": "2009-12-23T11:49:32.28-08:00"
+  },
+  {
+    "Id": "75093",
+    "Title": "Question about the customer class",
+    "LatestDate": "2009-11-14T10:42:05.67-08:00"
+  },
+  {
+    "Id": "75526",
+    "Title": "Mediator and events",
+    "LatestDate": "2009-11-19T06:37:53.103-08:00"
+  },
+  {
+    "Id": "77378",
+    "Title": "about \"update\" in MVVM",
+    "LatestDate": "2011-08-12T11:32:39.323-07:00"
+  },
+  {
+    "Id": "78223",
+    "Title": "Message, WeakReference & Garbage Collection",
+    "LatestDate": "2011-04-26T01:07:03.59-07:00"
+  },
+  {
+    "Id": "78779",
+    "Title": "Thoughts on my Messenger implementation",
+    "LatestDate": "2010-01-05T08:32:28.957-08:00"
+  },
+  {
+    "Id": "79780",
+    "Title": "UnitTests suddenly unavailable",
+    "LatestDate": "2010-01-06T00:27:56.237-08:00"
+  },
+  {
+    "Id": "81785",
+    "Title": "Using some of your classes in my own mvvm codeplex project",
+    "LatestDate": "2010-01-23T03:33:03.977-08:00"
+  },
+  {
+    "Id": "82328",
+    "Title": "PropertyChangedEventManager.RemoveListener doesn't seem to do anything.",
+    "LatestDate": "2012-04-06T05:52:22.843-07:00"
+  },
+  {
+    "Id": "85409",
+    "Title": "PropertyObserver : what am I doing wrong ?",
+    "LatestDate": "2010-03-09T12:03:25.353-08:00"
+  },
+  {
+    "Id": "205862",
+    "Title": "Shortcut Keys with RelayCommands",
+    "LatestDate": "2010-03-20T13:50:48.997-07:00"
+  },
+  {
+    "Id": "208232",
+    "Title": "IMessenger interface",
+    "LatestDate": "2010-04-03T07:38:01.003-07:00"
+  },
+  {
+    "Id": "210704",
+    "Title": "Activating a different view",
+    "LatestDate": "2010-04-27T08:18:44.973-07:00"
+  },
+  {
+    "Id": "211801",
+    "Title": "Getting a parameter from XAML in a command",
+    "LatestDate": "2010-05-11T02:21:59.213-07:00"
+  },
+  {
+    "Id": "213223",
+    "Title": "WindowsFormsHost Child Binding",
+    "LatestDate": "2011-08-24T06:52:35.323-07:00"
+  },
+  {
+    "Id": "215128",
+    "Title": "MessengerAdapter<TEnum>",
+    "LatestDate": "2010-06-06T16:01:28.233-07:00"
+  },
+  {
+    "Id": "216470",
+    "Title": "UnitTests fail in VS2010: Info for others.",
+    "LatestDate": "2010-06-17T23:32:34.407-07:00"
+  },
+  {
+    "Id": "220388",
+    "Title": "MultiSelectCollectionView",
+    "LatestDate": "2010-07-21T05:34:38.683-07:00"
+  },
+  {
+    "Id": "225780",
+    "Title": "OpenSource Project?",
+    "LatestDate": "2010-09-02T04:57:33.553-07:00"
+  },
+  {
+    "Id": "226465",
+    "Title": "Control input focus inside MVVM Foundation",
+    "LatestDate": "2010-09-08T08:03:39.573-07:00"
+  },
+  {
+    "Id": "228254",
+    "Title": "Here's an easy one.",
+    "LatestDate": "2010-09-23T08:13:47.563-07:00"
+  },
+  {
+    "Id": "228517",
+    "Title": "CommandSink or ObservableObject",
+    "LatestDate": "2010-09-24T14:46:49.863-07:00"
+  },
+  {
+    "Id": "230548",
+    "Title": "Any examples to display Dialogs with MVVM Foundation?",
+    "LatestDate": "2013-05-10T11:34:35.793-07:00"
+  },
+  {
+    "Id": "231128",
+    "Title": "Drag & Drop/Other Inderaction in MVVM App",
+    "LatestDate": "2010-10-16T03:58:32.337-07:00"
+  },
+  {
+    "Id": "232175",
+    "Title": "Highlighting cell values in a datagrid dynamically WPF MVVM",
+    "LatestDate": "2010-10-25T02:25:33.64-07:00"
+  },
+  {
+    "Id": "238177",
+    "Title": "Messenger Unregister?",
+    "LatestDate": "2010-12-13T08:19:00.783-08:00"
+  },
+  {
+    "Id": "243961",
+    "Title": "Enterprise Library",
+    "LatestDate": "2011-01-31T09:50:23.493-08:00"
+  },
+  {
+    "Id": "245554",
+    "Title": "can MVVM work with SL4 & MS Web developer 2010 express?",
+    "LatestDate": "2011-02-10T19:46:58.67-08:00"
+  },
+  {
+    "Id": "394555",
+    "Title": "MVVM - What \"can\" go in the code behind w/o breaking Best Practices",
+    "LatestDate": "2012-09-05T18:24:08.007-07:00"
+  },
+  {
+    "Id": "404938",
+    "Title": "ObservableObject and EditableObject",
+    "LatestDate": "2012-11-28T12:56:55.987-08:00"
+  },
+  {
+    "Id": "439205",
+    "Title": "Pass a parameter with the Messenger class",
+    "LatestDate": "2013-04-05T02:17:27.99-07:00"
+  },
+  {
+    "Id": "468269",
+    "Title": "Better implementation of RaisePropertyChanged",
+    "LatestDate": "2013-11-12T07:56:38.687-08:00"
+  },
+  {
+    "Id": "646632",
+    "Title": "PropertyObserver issue when handling all properties changed?",
+    "LatestDate": "2015-10-25T17:08:31.093-07:00"
+  }
+]

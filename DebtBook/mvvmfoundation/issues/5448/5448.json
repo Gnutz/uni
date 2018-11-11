@@ -1,0 +1,60 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": "2009-08-23T11:45:42.773-07:00",
+    "CommentCount": 0,
+    "Custom": null,
+    "Description": "I discovered that the registered delegates for a given message are invoked in the reverse order of registration.  In my application, I needed to ensure some specific delegates were invoked before all the others.  I added following 1 line (and comment) to MessageToActionsMap.GetActions(...) right before the final \"return actions;\"\n        // Because it *may* be important to preserve the order of the original weakActions List\n        // and weakActions was traversed in reverse order, reverse the final list.\n        actions.Reverse();",
+    "LastUpdatedDate": "2013-05-16T03:45:10.193-07:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Low",
+      "Severity": 50,
+      "Id": 1
+    },
+    "ProjectName": "mvvmfoundation",
+    "ReportedDate": "2009-08-20T16:23:06.693-07:00",
+    "Status": {
+      "Name": "Closed",
+      "Id": 4
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "Messenger.NotifyColleagues invokes registered delegates in reverse order.",
+    "Type": {
+      "Name": "Issue",
+      "Id": 3
+    },
+    "VoteCount": 1,
+    "Id": 5448
+  },
+  "FileAttachments": [],
+  "Comments": [
+    {
+      "Message": "Nice catch!  I'm going to fix a bunch of little issues in MVVM Foundation this weekend, so I'll be sure to include this one.  Thanks for pointing it out. ",
+      "PostedDate": "2009-08-21T09:44:45.197-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "Resolved with changeset 32506.",
+      "PostedDate": "2009-08-23T11:45:42.773-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2013-02-21T16:05:49.953-08:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2013-05-16T03:45:10.193-07:00",
+      "Id": -2147483648
+    }
+  ]
+}

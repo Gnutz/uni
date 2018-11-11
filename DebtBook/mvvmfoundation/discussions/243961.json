@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "557953",
+    "ThreadId": "243961",
+    "Html": "\r\n<p>Hi Josh,</p>\r\n<p><span style=\"white-space:pre\">&nbsp;</span>I would like to know why&nbsp;PropertyObserver doesn't work when the class is instantiated using Enterprise Library? I have a container that uses the Interception Extension for Tracing purposes and the PropertyObserver\r\n simply doesn't do any callback when I Resolve through that container, but if I instantiate in the standard way, it works.</p>\r\n<p>&nbsp;</p>\r\n<p>Is there any special reason for that?</p>\r\n",
+    "PostedDate": "2011-01-31T02:28:52.737-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "558193",
+    "ThreadId": "243961",
+    "Html": "\r\n<p>Sorry, I have tried that before. &nbsp;I'd have to have a test project in order to debug that.</p>\r\n",
+    "PostedDate": "2011-01-31T09:50:23.493-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

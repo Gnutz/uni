@@ -1,0 +1,10 @@
+[
+  {
+    "Id": "908932",
+    "ThreadId": "394555",
+    "Html": "\r\n<p>We have a WPF application written in C# using Prism 4 and MVVM. Our team is having a hard time trying to determine what can go in the View Code Behind and what cannot. In the context of Best Practices and writing testable code please comment on how to address\r\n the inherit limitations of the MVVM pattern (using Prism). There are all sorts of techniques from giving the ViewModel access to the View via Interface to raising events from the ViewModel that are wired to from within the View. Are any of these suggestions\r\n okay? I do realize that in some scenarios we could write additional code creating dependency properties, but this feels like we have to spend time creating and eventually maintaining the pattern faculties and not focusing on our application.</p>\r\n",
+    "PostedDate": "2012-09-05T18:24:08.007-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

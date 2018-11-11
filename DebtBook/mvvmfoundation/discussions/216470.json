@@ -1,0 +1,10 @@
+[
+  {
+    "Id": "457079",
+    "ThreadId": "216470",
+    "Html": "<p>Hi All,</p>\r\n<p>After importing the library into VS2010 I was unable to successfully run the unit tests because of a deliberate change introduced by MS in the handling of exceptions raised by methods invoked by reflection. Effectively the tests for expected exceptions don't work because the Debugger intercepts them before the unit test can deal with them.</p>\r\n<p>The issue is discussed <a title=\"Debugger, unit tests and exceptions\" href=\"http://social.msdn.microsoft.com/Forums/en/vsdebug/thread/25bdf149-5133-4f47-bbf2-1d4ca638fee9\">here</a>&nbsp;and has some wider implications.</p>\r\n<p>Just thought it might help others scratching their head when they get errors during the unit tests in VS2010 like:</p>\r\n<p style=\"padding-left:30px\">&quot;Must pass a parameter of type System.String with this message. Registered action(s) expect it.&quot;</p>\r\n<p>Cheers,</p>\r\n<p>Scott</p>",
+    "PostedDate": "2010-06-17T23:32:34.407-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

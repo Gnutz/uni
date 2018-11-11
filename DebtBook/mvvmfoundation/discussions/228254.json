@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "497310",
+    "ThreadId": "228254",
+    "Html": "<p>Totally NOOB here.</p>\r\n<p>I am having data binding issues.&nbsp; I totally understand the concepts, but implementation details are confusing the daylights out of me.&nbsp; I'm starting to get that &quot;deer in the headlights&quot; look.</p>\r\n<p>I have a model (for simplicity here it is)</p>\r\n<p>﻿class Table</p>\r\n<p>{ public string TableName { get { return &quot;This is the table name&quot;; } }</p>\r\n<p>public string TableDesc { get { return &quot;This is a description of a table&quot;; } }</p>\r\n<p>public Table() { }</p>\r\n<p>}</p>\r\n<p>I have also a view model</p>\r\n<p>﻿﻿class TableViewModel : INotifyPropertyChanged</p>\r\n<p>{</p>\r\n<p>private Table _table = new Table();</p>\r\n<p>public String Name { get { return _table.tableName; } }</p>\r\n<p>public String Desc { get { return _table.TableDesc; } }</p>\r\n<p>protected void NotifyChanged( string propertyName )</p>\r\n<p>{ if (PropertyChanged != null ) PropertyChanged(this, new PropertyChangedEventArgs(propertyName)); }</p>\r\n<p>public event PropertyChangedEventHandler PropertyChanged;</p>\r\n<p>}</p>\r\n<p>What do I need to do in my view to get this to display. Either the name of the desc property of my model?</p>\r\n<p>I could create a view, but just for simplicity I'm trying to put it in just a window.</p>\r\n<p>All classes are at root in my application (such as it is).</p>\r\n<p>Live Life Happy!</p>\r\n<p>Rob</p>\r\n<p>&nbsp;</p>",
+    "PostedDate": "2010-09-22T18:14:39.703-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "497600",
+    "ThreadId": "228254",
+    "Html": "<p>Wow, two weeks of solid pain trying to grasp this concept. I've got it now.</p>\r\n<p>Sorry for the premature post.</p>\r\n<p>Rob</p>",
+    "PostedDate": "2010-09-23T08:13:47.563-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

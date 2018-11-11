@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "212427",
+    "ThreadId": "62580",
+    "Html": "<p>&nbsp;</p>\r\n<div style=\"color:Black;background-color:White\">\r\n<pre>Hi, Josh!</pre>\r\n<pre>What are you trying to catch in this method?</pre>\r\n<pre>TPropertySource GetPropertySource()\r\n{\r\n  <span style=\"color:Blue\">try</span>\r\n  {\r\n      <span style=\"color:Blue\">return</span> (TPropertySource)_propertySourceRef.Target;\r\n  }\r\n  <span style=\"color:Blue\">catch</span> \r\n  {\r\n      <span style=\"color:Blue\">return</span> <span style=\"color:Blue\">default</span>(TPropertySource);\r\n  }\r\n}\r\n</pre>\r\n</div>\r\n<p>(http://mvvmfoundation.codeplex.com/sourcecontrol/changeset/view/28982?projectName=mvvmfoundation#531065)</p>\r\n<p>&nbsp;</p>",
+    "PostedDate": "2009-07-15T22:46:08.613-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "212624",
+    "ThreadId": "62580",
+    "Html": "<p>I have seen exceptions thrown when accessing the Target property (very rarely). &nbsp;I am extra careful when working with WeakReference objects.</p>",
+    "PostedDate": "2009-07-16T07:41:50.37-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

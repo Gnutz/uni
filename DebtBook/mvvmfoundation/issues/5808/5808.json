@@ -1,0 +1,65 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": null,
+    "CommentCount": 0,
+    "Custom": null,
+    "Description": "Hi,\n \nI have been using your classes for a while now and I have a question regarding the Messenger class. I your WpfDemoApp, from the NumberChangeLogView constructor, you register like the following:\nApp.Messenger.Register(\n                App.MSG_LOG_APPENDED,\n                new Action(() => _scrollViewer.ScrollToBottom()));\nIf I debug step into Register method and look at the Action object, callback, in Watch list the value is said to be: {Method = {Void <.ctor>b__0()}}\nMy question is: why is it the constructor (ctor) displayed here? Why isn't it the simply method ScrollToBottom. \nThe reason of my question? I tried to add an unregister method to your Messenger to be called like the following:\nApp.Messenger.Unregister(\n                App.MSG_LOG_APPENDED,\n                new Action(() => _scrollViewer.ScrollToBottom()));\nThat call should retrieve the action registered and remove it from the map list. The problem is, since that call will be made elsewhere than in the constructor, I end up having a different action object which is not equal to the one passed in parameter on registration. So I cannot retrieve the action and unregister it. \n \nTo give an example, in my project I registered a save message from my constructor:\nApp.Messenger.Register(\n                App.MSG_SAVE,\n                new Action(() => this.Save()));\nSo in the messenger, the action had a value of (in debug window Watch List):\n{Method = {Void <.ctor>b__0()}}\nAnd I unregistered from my method OnDispose, and the action came out to be:\n{Method = {Void <OnDispose>b__2()}}\n \nI know you said it is unnecessary to unregister because of weakreferences, but I have a case where I would like to unregister manually so I was wondering what is your thought on it. How can it be implemented?",
+    "LastUpdatedDate": "2013-02-21T16:05:49.343-08:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Low",
+      "Severity": 50,
+      "Id": 1
+    },
+    "ProjectName": "mvvmfoundation",
+    "ReportedDate": "2009-10-15T07:24:49.64-07:00",
+    "Status": {
+      "Name": "Proposed",
+      "Id": 1
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "Unregistering from Messenger",
+    "Type": {
+      "Name": "Issue",
+      "Id": 3
+    },
+    "VoteCount": 1,
+    "Id": 5808
+  },
+  "FileAttachments": [],
+  "Comments": [
+    {
+      "Message": "The method name is {Void <.ctor>b__0()}} because the Action object contains a lambda expression as its callback.  That lambda expression is basically turned into a separate method by the compiler, and it is assigned a compiler-generated name.  If you want to unregister a callback, don't use lambda expressions.  Instead, when creating the Action object, pass in the name of a callback method that you created (so that it doesn't have a compiler-generated name).\r\n\r\nHTH,\r\nJosh",
+      "PostedDate": "2009-10-15T08:55:07.427-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "Hi Josh,\r\n\r\nThanks for the answer. It worked. But is there a drawback doing it this way? I mean did you use lambda expression?\r\n\r\nPascal",
+      "PostedDate": "2009-10-15T09:26:35.81-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "Little mistake:\r\n\r\nThanks for the answer. It worked. But is there a drawback doing it this way? I mean why did you use lambda expression?\r\n\r\nPascal",
+      "PostedDate": "2009-10-15T09:27:28.39-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "I used a lambda expression in my example because I had no need to unregister.  A lambda expression, at the end of the day, is just a delegate (i.e. a strongly typed callback).",
+      "PostedDate": "2009-10-15T10:27:39.46-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2013-02-21T16:05:49.343-08:00",
+      "Id": -2147483648
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+[
+  {
+    "Id": "564349",
+    "ThreadId": "245554",
+    "Html": "\r\n<p><br>\r\nSince MS Web developer 2010 express can't convert the Mvvmfoundation.wpf. &nbsp;I created a folder in my project and added 4 source files to that folder, then the compiler complains\r\n<br>\r\n&quot;The type or namespace name 'IWeakEventListener' could not be found (are you missing a using directive or an assembly reference)&quot;<br>\r\nSo I tried to add reference but windowBase.dll can';t work with SL runtime. &nbsp;Does anybody have a workaround? Thanks!&nbsp;</p>\r\n<p>&nbsp;</p>\r\n",
+    "PostedDate": "2011-02-10T19:46:58.67-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

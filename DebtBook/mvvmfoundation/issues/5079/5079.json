@@ -1,0 +1,66 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": "2009-08-23T11:45:40.413-07:00",
+    "CommentCount": 0,
+    "Custom": null,
+    "Description": "I noticed that Messenger.Register doesn't attempt to enforce that all registered Action (or Action<T>) for a given message are all the same signature.  It seems better to check that they are consistent when registering, rather than just having an exception thrown when the DynamicInvoke fails on one of the callbacks.\nIt also checks for calling the wrong overload of NotifyColleagues (i.e., no parameter if parameter is expected, parameter if not expected).\nI am attaching a zip with my revisions (and unit tests), based on build 28982.\nI also made wrappers for Register (one is generic) so that the (Action) or (Action<...>) casts of the lambda expressions are not necessary.\nInstead, Register can have a type designation to specify the type of the Action parameter.  It's a bit cleaner. (To me, at least. I try to avoid casts.)\ne.g.: target.Register<string>(\"MESSAGE\", param => Debug.WriteLine(param));            // From my revised unit tests.",
+    "LastUpdatedDate": "2013-05-16T03:45:11.033-07:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Low",
+      "Severity": 50,
+      "Id": 1
+    },
+    "ProjectName": "mvvmfoundation",
+    "ReportedDate": "2009-07-15T18:43:27.673-07:00",
+    "Status": {
+      "Name": "Closed",
+      "Id": 4
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "(Messenger) Mixing registered Action types for the same message not detected/prevented.",
+    "Type": {
+      "Name": "Issue",
+      "Id": 3
+    },
+    "VoteCount": 1,
+    "Id": 5079
+  },
+  "FileAttachments": [
+    {
+      "FileId": 1605,
+      "FileName": "Messenger.zip",
+      "DownloadUrl": ".\\1605"
+    }
+  ],
+  "Comments": [
+    {
+      "Message": "Thanks for the feedback.  Sorry, I didn't realize that this issue was logged until today.  I'll look into your improvements soon.  Thanks!",
+      "PostedDate": "2009-08-20T08:23:03.757-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "Resolved with changeset 32506.",
+      "PostedDate": "2009-08-23T11:45:40.413-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2013-02-21T16:05:50.48-08:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2013-05-16T03:45:11.033-07:00",
+      "Id": -2147483648
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+[
+  {
+    "Id": "264520",
+    "ThreadId": "77378",
+    "Html": "<p>Hello,</p>\r\n<p>First of all, I would like to thank you for your work. It's a great source of inspiration for my WPF &amp; Silverlght application.</p>\r\n<p>I have a question about the &quot;update&quot; phase.</p>\r\n<p>You replaced &quot;ViewModelBase&quot; with &quot;ObservableObject&quot; for the INotifyPropertyChanged base class implementation.</p>\r\n<p>The consequence is that a class of the Model can inherit from this class and notify the observers after an update (a ViewModel -or&nbsp;a View if it directly binds it-).</p>\r\n<p>But the other consequence is : whenever the repository has succeeded or not in saving the changes, each viewmodel or view that binds this object reflects the changes automatically.</p>\r\n<p>If we take your sample application with the Customers. Suppose that we have a form to create&nbsp;or modify Customer informations.</p>\r\n<p>We have a CustomerViewModel for this form. But we can have in our application several CustomerViewModel&nbsp;instances of the same customer, typically in a datagrid containing the Customers and their main properties.</p>\r\n<p>We don't want that the&nbsp;datagrid reflects the changes until the Customer has been saved (and commited) in the repository.</p>\r\n<p>My idea is to add a &quot;CustomerUpdated&quot; event in the CustomerRepository class that is raised after SaveChanges.</p>\r\n<p>Therefore, every CustomerViewModel related to this Costumer can call NotifyPropertyRaised on all the Customer properties.</p>\r\n<p>What do you think about it ?</p>\r\n<p>Does anyone have ever faced this situation? How did you solve it ?</p>\r\n<p>Regards,</p>\r\n<p>&nbsp;</p>\r\n<p>Littlesteps</p>",
+    "PostedDate": "2009-12-07T08:28:23-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "264532",
+    "ThreadId": "77378",
+    "Html": "<p>If you have multiple VMs associated with the same Model object, but do not want to have them all keep in sync with the Model object's state at the same points in time, then you will have to take a different approach. &nbsp;There are several options:</p>\r\n<p>1) On the VM whose properties should not immediately update when a property on the Model changes, set the Bindings' UpdateSourceTrigger to 'Explicit' and then call UpdateSource() on each BindingExpression when you want the values to be transfered to the VM (i.e. after a Save operation).</p>\r\n<p>OR</p>\r\n<p>2) Externalize the editable state of the Model to a separate class and expose two instances of that class off the Model. &nbsp;One instance represents the &quot;edit&quot; values, and the other instance represents the &quot;saved&quot; values. &nbsp;The editable VMs would bind to the &quot;edit&quot; instance's properties, and the read-only VM would bind to the &quot;saved&quot; values. &nbsp;When you call Save on the Model, you would update the &quot;saved&quot; instance to contain the &quot;edit&quot; instance's values.</p>\r\n<p>OR</p>\r\n<p>3) Maintain two repositories of Model objects: the &quot;edit&quot; collection and the &quot;saved&quot; collection. &nbsp;Each VM would only bind to objects from one of the collections. &nbsp;When you save an object in the &quot;edit&quot; collection, you would reflect those changes in the &quot;saved&quot; collection.</p>\r\n<p>Josh</p>",
+    "PostedDate": "2009-12-07T08:43:25.013-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "264669",
+    "ThreadId": "77378",
+    "Html": "<p>Hello Josh,</p>\r\n<p>Thanks a lot for your answer.</p>\r\n<p>I know and often use the option 1: &quot;UpdateSourceTrigger set to Explicit&quot;. <br>It is obvious for simple data types (e.g. string values), but I don't know if it's possible to use it for a parent/child relationship.<br>For instance, suppose that I have an order with a list of OrderItems. When the user edits the Order, he can add or remove OrderItems. A typical implementation is:&nbsp;A listbox binds an ObservableCollection (or a CollectionViewSource) and each new item in the list corresponds to a new OrderItem object in the model... Is it possible to use UpdateSourceTrigger in this case?</p>\r\n<p>I'm not really convinced by your option 2, because I'm not sure that a model object has to know that is has been&nbsp;saved in&nbsp;the repository.<br>I never call Load or Save on a Model class. The viewmodel has the responsability to load from and save to the repository the model, as you did in your Customer sample application.<br>Am I right?</p>\r\n<p>I think that your Option 3 is probably the best for me. I will think about it.<br>Thanks again.</p>\r\n<p><br>Best regards,</p>\r\n<p>Littlesteps</p>",
+    "PostedDate": "2009-12-07T15:14:23.807-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "413919",
+    "ThreadId": "77378",
+    "Html": "<p>Hello,</p>\r\n<p>you are saying that it is possible to use UpdateSourceTrigger&nbsp;= Explicit in MVVM, I don't understand how instance of BindingExpression could be got in ViewModel if ViewModel doesn't have a reference to UI components. So, if I didn't use MVVM then in code behind file I would use something like that:</p>\r\n<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BindingExpression be = tbAge.GetBindingExpression(TextBox.TextProperty);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; be.UpdateSource();</p>\r\n<p>&nbsp;</p>\r\n<p>where tbAge is my TextBox which is bound in XAML, but how to get instance of BindingExpression in MVVM case ?</p>",
+    "PostedDate": "2010-03-03T17:39:37.653-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "657326",
+    "ThreadId": "77378",
+    "Html": "<p>Josh,</p>\r\n<p>Do you have an example of using UpdateSourceTrigger=Explicit that adheres to MVVM?&nbsp; It seems like a common scenario would be:</p>\r\n<ul>\r\n<li>1. In one View (UserControl), a ListView that displays an ObservableCollection of [Customers].</li>\r\n<li>2. In another View (UserControl), many TextBoxes, ComboBoxes, CheckBoxes, etc.&nbsp;that will display data for the specific [Customer] that is selected in the ListView.&nbsp; This view would have a Save button that uses a Command to update the repository and notify the ListView to update itself.</li>\r\n</ul>\r\n<p>I was considering creating a copy (deep copy with new reference) of the SelectedItem [Customer]&nbsp;from the ListView and&nbsp;passing the copied data to the details view.&nbsp; The details view binds to the copied data.&nbsp; When the Save button is pressed, the values for the original SelectedItem are updated with the values in the copied data.&nbsp; Does this sound reasonable?</p>\r\n<p>&nbsp;</p>",
+    "PostedDate": "2011-08-12T11:32:39.323-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

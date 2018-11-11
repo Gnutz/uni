@@ -1,0 +1,45 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": null,
+    "CommentCount": 0,
+    "Custom": null,
+    "Description": "One of the PropertyObserver feature I like is that by calling RaisePropertyChanged(null) or RaisePropertyChanged(string.Empty) on the source object, it will loop through all the registered handlers and invoke them one-by-one.\n\nBut during creation of a unit test for this functionality I found out that the ReceiveWeakEvent() method is called N number of times with null/string.Empty as property name, with N as the number of registered handlers. So the foreach loop will be done N number of times, which I think is not the intended behavior.\n\nDo you have any idea on how to fix this issue?",
+    "LastUpdatedDate": "2015-11-07T02:51:02.24-08:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Unassigned",
+      "Severity": 0,
+      "Id": 0
+    },
+    "ProjectName": "mvvmfoundation",
+    "ReportedDate": "2015-10-25T15:37:21.383-07:00",
+    "Status": {
+      "Name": "Proposed",
+      "Id": 1
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "PropertyObserver doing foreach handler invoke N number of times",
+    "Type": {
+      "Name": "Unassigned",
+      "Id": 5
+    },
+    "VoteCount": 1,
+    "Id": 13427
+  },
+  "FileAttachments": [],
+  "Comments": [
+    {
+      "Message": "Okay I found the bug: When calling RegisterHandler(), each time PropertyChangedEventManager.AddListener() is called again. This is incorrect, because we only need to call this once for every unique listener (in this case the PropertyObserver class) by specifying string.Empty in the third argument.\r\n\r\nSee: https://msdn.microsoft.com/en-us/library/system.componentmodel.propertychangedeventmanager.addlistener(v=vs.110).aspx\r\n\r\nWhen all handlers are unregistered we can then call PropertyChangedEventManager.RemoveListener(), also with string.Empty as third argument.",
+      "PostedDate": "2015-11-07T02:51:02.24-08:00",
+      "Id": -2147483648
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "490669",
+    "ThreadId": "226465",
+    "Html": "<p>Hi Josh,</p>\r\n<p>Why your focus solution is not part of the MVVMFoundation ?</p>\r\n<p>http://joshsmithonwpf.wordpress.com/2010/03/16/control-input-focus-from-viewmodel-objects/</p>\r\n<p>Regards</p>\r\n<p>Ezequiel</p>",
+    "PostedDate": "2010-09-08T07:12:00.947-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "490702",
+    "ThreadId": "226465",
+    "Html": "I only add the classes that I consider to be necessary in most MVVM apps to this library.  At this time, I don't consider the FocusBinding to be vital.<div><br></div><div>Thanks,</div><div>Josh</div>",
+    "PostedDate": "2010-09-08T08:03:39.573-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

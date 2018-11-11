@@ -1,0 +1,34 @@
+[
+  {
+    "Id": "214742",
+    "ThreadId": "63192",
+    "Html": "<p>Hello</p>\r\n<p>I am trying to find the best way to implement PropertyObserver for an ObservableCollection.</p>\r\n<p>I got a ClipViewModel and a PlaylistClipModel and PlaylistCollectionViewModel.</p>\r\n<p>The PlaylistClipModel got ObservableCollection&lt;ClipViewModel&gt;</p>\r\n<p>The PlaylistCollectionViewModel got ObservableCollection&lt;PlaylistClipModel&gt;</p>\r\n<p>Now i want to monitor if certain Properties in ClipViewModel got changed and fire that event in the corresponding PlaylistViewModel.</p>\r\n<p>What is the best way to do that,</p>\r\n<p>right now i am using Messenger to do that, eachplaylist got a Guid and i am adding this Guid each child element so each clip notify only his playlist rather than notifying all playlist.</p>\r\n<p>Is there a better way using PropertyObserver.&nbsp; Do u think add a PrepertyObserver for each ClipViewModel is better.</p>\r\n<p>&nbsp;</p>\r\n<p>BR</p>\r\n<p>Shahbour</p>",
+    "PostedDate": "2009-07-22T06:04:52.49-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "214836",
+    "ThreadId": "63192",
+    "Html": "<p>Charles Petzold tackled this problem in an MSDN Magazine article: <a href=\"http://msdn.microsoft.com/en-us/magazine/cc794276.aspx#id0070059\">http://msdn.microsoft.com/en-us/magazine/cc794276.aspx#id0070059</a></p>",
+    "PostedDate": "2009-07-22T09:20:30.483-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "214862",
+    "ThreadId": "63192",
+    "Html": "<p>Thanks, it is exactly what i need.</p>\r\n<p>I only changed</p>\r\n<p>&nbsp;</p>\r\n<div style=\"color:Black;background-color:White\">\r\n<pre><span style=\"color:Blue\">public</span> ItemPropertyChangedEventHandler ItemPropertyChanged;\r\n\r\ninto<br><div style=\"color:Black;background-color:White\"><pre><span style=\"color:Blue\">public</span> <span style=\"color:Blue\">event</span> ItemPropertyChangedEventHandler ItemPropertyChanged;\r\n</pre>\r\n</div>\r\n<br>in ObservableNotifiableCollection Class<br><br>I think it should be an event right ?<br><br>BR<br>Shahbour</pre>\r\n</div>\r\n<p>&nbsp;</p>",
+    "PostedDate": "2009-07-22T10:12:27.04-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "223085",
+    "ThreadId": "63192",
+    "Html": "<p>Great link to the Petzold article -- it helped me solve the same issue of monitoring item property changes within an <strong>ObservableCollection&nbsp;</strong>Just wanted to post a follow-up link from Petzold's blog:</p>\r\n<p><a href=\"http://www.charlespetzold.com/blog/2008/09/My-Article-on-Property-Changed-Notifications-in-MSDN-Magazine.html\">http://www.charlespetzold.com/blog/2008/09/My-Article-on-Property-Changed-Notifications-in-MSDN-Magazine.html</a></p>\r\n<p>The <strong>ObservableNotifiableCollection</strong> that Petzold details in his original article (that Josh posted the link to above)&nbsp;does not correctly remove event handlers for items that are removed from the collection via <strong>Clear()</strong>. The above link&nbsp;has Petzold's fix for that: overriding the <strong>ClearItems()</strong> method in <strong>ObserableNotifiableCollection</strong> to ensure the event handlers are correctly removed.</p>\r\n<p>Shahbour, I agree with you -- I think there should be an <strong>event </strong>keyword there as well, although it seems to work fine without it.</p>\r\n<p>Ken</p>",
+    "PostedDate": "2009-08-13T12:39:51.987-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

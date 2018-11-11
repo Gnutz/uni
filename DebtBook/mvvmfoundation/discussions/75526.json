@@ -1,0 +1,26 @@
+[
+  {
+    "Id": "258438",
+    "ThreadId": "75526",
+    "Html": "<p>Josh, I had what I thought might be an interesting although nowhere near thought out idea, and was wondering what you might think of it...:</p>\r\n<p>One of the things that I like about the mediator pattern is that it allows for automatic subscription to events based on the metadata, without concern for deregistering since you're using weak references. &nbsp;Now, it occurred to me, that usually regular CLR events follow a fixed number of parameters pattern, where you have (object sender, TEventArgs args) where TEventArgs is some class derived from EventArgs. &nbsp;The mediator follows a similar pattern, though it is a little different - you can have zero or one parameters, the parameter has no type restriction (that I've noticed) and you use a string as a discriminator to match up the event published to the subscribing actions.</p>\r\n<p>Well...</p>\r\n<p>How about providing a Subscribe method on the mediator which automatically subscribes to all events (using reflection) on a source object which follow the described pattern (always two parameters with the first being object sender, and the second being derived from EventArgs).</p>\r\n<p>Then have metadata attributes which allow you to identify which events you want routed to which methods (for the Register call).</p>\r\n<p>You could probably use the existing MediatorMessageSink attribute, and match the string event discriminator to the name of the published event. &nbsp;There are some things I think you'd want to add - for example, allow the methods which receive the events to have a third parameter of type object, in which case you can pass the object parameter to them. &nbsp;I think you might also want to add another parameter to the metadata attribute which allows specification of the type of source object - that way if the same mediator is subscribed to events from different types of source object, you could require the mediator to only route events to recepients which specify a matching source type.</p>\r\n<p>What do you think? Crazy? Interesting?&nbsp;</p>",
+    "PostedDate": "2009-11-18T13:48:18.56-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "258464",
+    "ThreadId": "75526",
+    "Html": "<p>That sounds interesting, though quite &quot;black magical.&quot; &nbsp;I can see how that would be useful, but I like to avoid adding black magic to my code, because it makes debugging and (re)learning the code more difficult. &nbsp;But, if you create it, let me know!!</p>",
+    "PostedDate": "2009-11-18T15:21:25.61-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "258668",
+    "ThreadId": "75526",
+    "Html": "<p>Will do. &nbsp;I may end up modifying the mediator to support this - I currently have a business object which raises events that currently have to then get forwarded on by a single 'main' viewmodel to a bunch of child viewmodels, which is how this idea cropped up - I was pondering how to avoid having to write so much glue code between the business object and the viewmodels.</p>\r\n<p>Anyway, will let you know if I do modify it.</p>\r\n<p>Cheers!</p>\r\n<p>Phil</p>\r\n<p>&nbsp;</p>",
+    "PostedDate": "2009-11-19T06:37:53.103-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

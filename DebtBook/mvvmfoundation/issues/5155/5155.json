@@ -1,0 +1,60 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": "2009-08-23T11:45:42.04-07:00",
+    "CommentCount": 0,
+    "Custom": null,
+    "Description": "A minor defect, but one that irks the test-infected :\nThe test method ObservableObjectTest.InvalidPropertyNameIsReported fails in the Release build : indeed it is testing a feature that is documented as belonging only in Debug builds !\nThat method should thus probably be surrounded with #if(DEBUG)/#endif or tagged with some equivalent attribute.\n \nI'll finish by hijacking this issue ticket to say thanks a lot for sharing all the good stuff on WPF for all this time ! :)",
+    "LastUpdatedDate": "2013-05-16T03:45:10.89-07:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Low",
+      "Severity": 50,
+      "Id": 1
+    },
+    "ProjectName": "mvvmfoundation",
+    "ReportedDate": "2009-07-21T14:21:13.55-07:00",
+    "Status": {
+      "Name": "Closed",
+      "Id": 4
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "Test fails in Release build",
+    "Type": {
+      "Name": "Issue",
+      "Id": 3
+    },
+    "VoteCount": 1,
+    "Id": 5155
+  },
+  "FileAttachments": [],
+  "Comments": [
+    {
+      "Message": "D'oh!  Thanks for pointing that out.  I'll fix it soon.",
+      "PostedDate": "2009-08-20T08:22:03.727-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "Resolved with changeset 32506.",
+      "PostedDate": "2009-08-23T11:45:42.04-07:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2013-02-21T16:05:50.283-08:00",
+      "Id": -2147483648
+    },
+    {
+      "Message": "",
+      "PostedDate": "2013-05-16T03:45:10.89-07:00",
+      "Id": -2147483648
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+[
+  {
+    "Id": "273256",
+    "ThreadId": "79780",
+    "Html": "<p>I'm using the MVVM Toolkit and it happened now more than twice to me that when I launch VS9</p>\r\n<p>on the solution file or start the project in VS9, a part of the project is claimed to be unavailable.</p>\r\n<p>Could it be that someone, some cleanup mechanism busts out the folder in which the</p>\r\n<p>UnitTests are located? That folder is c:\\Dokumente und Einstellungen\\Krischu\\Lokale Einstellungen\\Anwendungsdaten\\Temporary Projects\\MVVM-Krischu.Tests\\MVVM-Krischu.Tests.csproj</p>\r\n<p>&nbsp;</p>\r\n<p>How can I recreate the missing files without having to regenerate the project from ground up?</p>\r\n<p>&nbsp;</p>\r\n<p>--</p>\r\n<p>Christoph</p>\r\n<p>&nbsp;</p>\r\n<p>&nbsp;</p>",
+    "PostedDate": "2010-01-05T04:08:50.863-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "273355",
+    "ThreadId": "79780",
+    "Html": "<p>I cannot reproduce this issue. &nbsp;Could it perhaps be that the project's file path has too many characters? &nbsp;I've seen errors like that, where path has over 255 characters, which is considered invalid. &nbsp;Try putting the solution at c:\\ and see if it still happens.</p>\r\n<p>Josh</p>",
+    "PostedDate": "2010-01-05T08:30:53.63-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "273390",
+    "ThreadId": "79780",
+    "Html": "<p>I built a new WPF Model-View Application (File-&gt;New-&gt;Project-&gt;C#-&gt;WPF Model-View Application). I'm aske dfor the name and whether</p>\r\n<p>I want to build a UnitTest etc. I say yes and the project is created. At no point I can specify, where it should be put in.</p>\r\n<p>When I then right-click on the solution explorer and click &quot;Open Folder in Windows Explorer&quot;, I see that it is built in</p>\r\n<p>&nbsp;</p>\r\n<p>C:\\Dokumente und Einstellungen\\myusername\\Lokale Einstellungen\\Anwendungsdaten\\Temporary Projects\\MVVM-myusername.Tests</p>\r\n<p>&nbsp;</p>\r\n<p>The project itself is also placed there (Temporary Projects).</p>\r\n<p>When I then save the project later, I can specify a path. The project itself gets copied there and disappears from</p>\r\n<p>the ..\\Temporary Projects folder. But the unittests directory stays sitting there and doesn't get copied.</p>\r\n<p>So when I open the project next time from the MRU list in the startpage of VS9 I get this message that some parts (the unittests) have been moved and are not available.</p>\r\n<p>&nbsp;</p>\r\n<p>So I wonder why the unittests are not getting copied when I save the project.</p>\r\n<p>&nbsp;</p>\r\n<p>Strange..</p>\r\n<p>&nbsp;</p>\r\n<p>--</p>\r\n<p>Christoph</p>\r\n<p>&nbsp;</p>",
+    "PostedDate": "2010-01-05T09:35:44.677-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "273408",
+    "ThreadId": "79780",
+    "Html": "<p>I have no idea how that could happen. &nbsp;Sorry...</p>",
+    "PostedDate": "2010-01-05T10:28:30.16-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "273654",
+    "ThreadId": "79780",
+    "Html": "<blockquote style=\"border:solid .1em #ccc;font-style:italic;margin:.25em 1em 0 1em;padding:0 .25em 0 .25em\"><strong>JoshSmithonWpf wrote:</strong><br>\r\n<p>I have no idea how that could happen. &nbsp;Sorry...</p>\r\n</blockquote>\r\n<p>No problem. Maybe it has to do with the fact that I initially had problems to get the WPF MVVM Toolkit installed in the C# project chooser at all, until I deinstalled</p>\r\n<p>every installation of VS8,9 and 10 (the former being german versions).</p>\r\n<p>&nbsp;</p>\r\n<p>I'll watch the effect alongside. For the moment I can help myself when creating a new project, that I move the unittests manually to the target directory and</p>\r\n<p>tweak the references in the generated files. A bit ugly though, but I think one can live with it, once one has learnt to create an instance of a MVVM app.</p>\r\n<p>&nbsp;</p>\r\n<p>--</p>\r\n<p>Christoph</p>",
+    "PostedDate": "2010-01-06T00:27:56.237-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

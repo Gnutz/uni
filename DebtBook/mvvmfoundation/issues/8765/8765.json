@@ -1,0 +1,39 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": null,
+    "CommentCount": 0,
+    "Custom": null,
+    "Description": "It would probably be more helpful if i created a demo app and replicated the memory leak. I will try explaining my issue and if that doesnt work ill put together a demo app\n1 Window\n10 User controls\n \nWindow holds dynamic user controls container.... that is ..... <UserControl Content=\"{Binding Path = UserViewControl....\nWindow also has 10 buttons, each buttons swaps out the windows user control container with a control...\n \nUser controls are loaded into the window\nEach user control has its ViewModel that it sets the UserControl.DataContext to. i.e.\n<UserControl.DataContext>\n        <vm:xViewModel></vm:xViewModel>\n    </UserControl.DataContext>\n \nSo whats the problem?\nwell., I see that if i open up xUserControl which loads xViewModel, i see the program memory increase, then if i navigate to Y, i.e yUserControl which loads yViewModel i get another memory increase.. If i go back to a previously opened view model, it doesnt do increase memory again. most probably because of the autofac/ioc containers being used... \n \nin a nutshell when i swap out usercontrols in the usercontrol container, it doesnt release the ViewModel that was set in the usercontrols datacontext.... \n \nI guess i could hook into the Unloaded method for usercontrols... but what/how do i dealloc the datacontext?\n \nDoes my question even make sense?",
+    "LastUpdatedDate": "2013-02-21T16:05:48.463-08:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Low",
+      "Severity": 50,
+      "Id": 1
+    },
+    "ProjectName": "mvvmfoundation",
+    "ReportedDate": "2010-06-17T11:21:12.947-07:00",
+    "Status": {
+      "Name": "Proposed",
+      "Id": 1
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "unloading/dealloc usercontrol DataContext",
+    "Type": {
+      "Name": "Issue",
+      "Id": 3
+    },
+    "VoteCount": 1,
+    "Id": 8765
+  },
+  "FileAttachments": [],
+  "Comments": []
+}

@@ -1,0 +1,74 @@
+[
+  {
+    "Id": "439892",
+    "ThreadId": "211801",
+    "Html": "<p>I would like to route a group of buttons to the same command, being able to discriminate which of them has been pressed in some way.</p>\r\n<p>What is the simplest way to do this, please?</p>",
+    "PostedDate": "2010-05-06T08:06:01.067-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "439908",
+    "ThreadId": "211801",
+    "Html": "<p>You can set/bind each Button's Command property to the same ICommand instance. &nbsp;Then set/bind each Button's CommandParameter property to a unique value, such as a String or a number. &nbsp;In the ICommand, inspect the 'parameter' argument to see which Button caused the command to execute.</p>",
+    "PostedDate": "2010-05-06T08:25:30.553-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "439929",
+    "ThreadId": "211801",
+    "Html": "<p>I am using MVVM foundation and my code block looks like this:</p>\r\n<p>\r\n<div style=\"color:black;background-color:white\">\r\n<pre>        <span style=\"color:blue\">private</span> ICommand cmdSelectProduct;\r\n\r\n        <span style=\"color:blue\">public</span> ICommand SelectProductCommand\r\n        {\r\n            <span style=\"color:blue\">get</span>\r\n            {\r\n                <span style=\"color:blue\">if</span> (cmdSelectProduct == <span style=\"color:blue\">null</span>)\r\n                {\r\n                    cmdSelectProduct = <span style=\"color:blue\">new</span> RelayCommand(SelectProduct);\r\n                }\r\n                <span style=\"color:blue\">return</span> cmdSelectProduct;\r\n            }\r\n        }\r\n\r\n        <span style=\"color:blue\">private</span> <span style=\"color:blue\">void</span> SelectProduct()\r\n        {\r\n            SelectedProduct = ???;\r\n            <span style=\"color:green\">// Fire an event for UI changes</span>\r\n            OnSelectProduct();\r\n        }\r\n</pre>\r\n<pre><br></pre>\r\n<pre>Maybe I should not be using RelayCommand for this job and create a class implementing ICommand, right?</pre>\r\n</div>\r\n</p>",
+    "PostedDate": "2010-05-06T08:47:02.657-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "439931",
+    "ThreadId": "211801",
+    "Html": "<p>I think you simply need to change SelectProduct to this:</p>\r\n<p>&nbsp;</p>\r\n<p>&nbsp;</p>\r\n<div style=\"color:black;background-color:white\">\r\n<pre><span style=\"color:blue\">private</span> <span style=\"color:blue\">void</span> SelectProduct(<span style=\"color:blue\">object</span> parameter){\r\n\r\n    <span style=\"color:blue\">string</span> choice = parameter <span style=\"color:blue\">as</span> <span style=\"color:blue\">string</span>;\r\n   <span style=\"color:blue\">if</span>(choice == <span style=\"color:blue\">null</span>){<span style=\"color:blue\">return</span>;}\r\n   <span style=\"color:blue\">switch</span>(choice){\r\n    .....\r\n   }\r\n}\r\n</pre>\r\n</div>\r\n<p>&nbsp;</p>\r\n<div style=\"color:black;background-color:white\">\r\n<pre>&lt;Button Command={Binding Path=SelectProductCommand} CommandParameter=&quot;mychoice&quot;&gt;Button To Make My Choice<span style=\"color:blue\">&lt;/</span><span style=\"color:#a31515\">Button</span><span style=\"color:blue\">&gt;</span>\r\n</pre>\r\n</div>\r\n<p>&nbsp;</p>",
+    "PostedDate": "2010-05-06T08:51:05.523-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "439935",
+    "ThreadId": "211801",
+    "Html": "<p>no, it complains that an Action is not a method group.</p>",
+    "PostedDate": "2010-05-06T08:55:11.863-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "439938",
+    "ThreadId": "211801",
+    "Html": "<p>Works for me in this code:</p>\r\n<pre><div style=\"color:black;background-color:white\"><pre>        <span style=\"color:blue\">public</span> RelayCommand SetStatusCommand\r\n        {\r\n            <span style=\"color:blue\">get</span>\r\n            {\r\n                <span style=\"color:blue\">if</span> (setStatusCommand == <span style=\"color:blue\">null</span>)\r\n                {\r\n                    setStatusCommand = <span style=\"color:blue\">new</span> RelayCommand(SetStatus);\r\n                }\r\n                <span style=\"color:blue\">return</span> setStatusCommand;\r\n            }\r\n        }\r\n\r\n        <span style=\"color:blue\">protected</span> <span style=\"color:blue\">void</span> SetStatus(<span style=\"color:blue\">object</span> status)\r\n        {\r\n            <span style=\"color:blue\">this</span>.Status = (SubjectStatus)status;\r\n        }\r\n</pre>\r\n</div>\r\n<br><br>Although I'm passing an Enum value as the parameter, using a static resource.<br><br><span style=\"color:blue\">&lt;</span><span style=\"color:#a31515\">mod</span><span style=\"color:blue\">:</span><span style=\"color:#a31515\">SubjectStatus</span> <span style=\"color:red\">x:Key</span><span style=\"color:blue\">=</span><span style=\"color:black\">&quot;</span><span style=\"color:blue\">statusAbsent</span><span style=\"color:black\">&quot;</span><span style=\"color:blue\">&gt;</span>Absent<span style=\"color:blue\">&lt;/</span><span style=\"color:#a31515\">mod</span><span style=\"color:blue\">:</span><span style=\"color:#a31515\">SubjectStatus</span><span style=\"color:blue\">&gt;</span><br><br><span style=\"color:blue\">&lt;</span><span style=\"color:#a31515\">Button</span> <span style=\"color:red\">Name</span><span style=\"color:blue\">=</span><span style=\"color:black\">&quot;</span><span style=\"color:blue\">buttonAbsent</span><span style=\"color:black\">&quot;</span> <span style=\"color:red\">Command</span><span style=\"color:blue\">=</span><span style=\"color:black\">&quot;</span><span style=\"color:blue\">{Binding SetStatusCommand}</span><span style=\"color:black\">&quot;</span> <span style=\"color:red\">CommandParameter</span><span style=\"color:blue\">=</span><span style=\"color:black\">&quot;</span><span style=\"color:blue\">{StaticResource statusAbsent}</span><span style=\"color:black\">&quot;</span><span style=\"color:blue\">&gt;</span>_Absent<span style=\"color:blue\">&lt;/</span><span style=\"color:#a31515\">Button</span><span style=\"color:blue\">&gt;</span><br><br></pre>\r\n<p>&nbsp;</p>\r\n<p>&nbsp;</p>\r\n<p>&nbsp;</p>\r\n<div id=\"_mcePaste\" style=\"left:-10000px;top:170px;width:1px;height:1px;overflow:hidden\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;Button Name=&quot;buttonAbsent&quot;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Command=&quot;{Binding SetStatusCommand}&quot;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CommandParameter=&quot;{StaticResource statusAbsent}&quot;&gt;_Absent&lt;/Button&gt;</div>",
+    "PostedDate": "2010-05-06T08:59:43.473-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "439946",
+    "ThreadId": "211801",
+    "Html": "<p>Thank you. I tried your code, but still have the same error.</p>\r\n<p>Might be some dependency, like the .net framework version (I am using Visual Studio 2010) or maybe the MVVM foundation framework (mine &nbsp;is 1.0.0.0).</p>",
+    "PostedDate": "2010-05-06T09:12:27.57-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "439951",
+    "ThreadId": "211801",
+    "Html": "Ah sorry you will need to make sure you use RelayCommand&lt;object&gt;, I have been using the old code from Josh's demo app \r\n\r\n(http://msdn.microsoft.com/en-us/magazine/dd419663.aspx#id0090030) where the RelayCommand takes and Action&lt;object&gt; by default, I need to update my stuff.\r\n\r\nOr you could use RelayCommand&lt;string&gt; and have private void SelectProduct(string param){...}.",
+    "PostedDate": "2010-05-06T09:15:12.21-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "441380",
+    "ThreadId": "211801",
+    "Html": "<p>Ah, yes, it worked for me after a little editing, thanks.</p>\r\n<p>Here it is for reference.</p>\r\n<p>&nbsp;</p>\r\n<div style=\"color:black;background-color:white\">\r\n<pre>    <span style=\"color:blue\">#region</span> SelectProduct [command]\r\n    <span style=\"color:blue\">private</span> RelayCommand&lt;<span style=\"color:blue\">object</span>&gt; cmdSelectProduct;\r\n\r\n    <span style=\"color:blue\">public</span> RelayCommand&lt;<span style=\"color:blue\">object</span>&gt; SelectProductCommand\r\n    {\r\n        <span style=\"color:blue\">get</span>\r\n        {\r\n            <span style=\"color:blue\">if</span> (cmdSelectProduct == <span style=\"color:blue\">null</span>)\r\n            {\r\n                cmdSelectProduct = <span style=\"color:blue\">new</span> RelayCommand&lt;<span style=\"color:blue\">object</span>&gt;(SelectProduct);\r\n            }\r\n            <span style=\"color:blue\">return</span> cmdSelectProduct;\r\n        }\r\n    }\r\n\r\n    <span style=\"color:blue\">private</span> <span style=\"color:blue\">void</span> SelectProduct(<span style=\"color:blue\">object</span> param)\r\n    {\r\n        <span style=\"color:blue\">string</span> prod = param <span style=\"color:blue\">as</span> <span style=\"color:blue\">string</span>;\r\n        <span style=\"color:green\">// fire event for UI</span>\r\n        OnSelectProduct();\r\n    }\r\n    <span style=\"color:blue\">#endregion</span>\r\n\r\n</pre>\r\n</div>\r\n<pre><br></pre>\r\n<p>&nbsp;</p>",
+    "PostedDate": "2010-05-11T02:21:59.213-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

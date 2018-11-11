@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "534973",
+    "ThreadId": "238177",
+    "Html": "\r\n<p>I'm building my application in some ways like an old MDI application, with multiple &quot;documents&quot; (I call them &quot;executors&quot;)&nbsp;projecting different views of the underlying model. With only one of these executors active any time, I find myself wanting to\r\n unregister and reregister callbacks as they are dynamically activated and deactivated.&nbsp;Since that&nbsp;makes perfect sense to me,&nbsp;I must be missing something because the Messenger class has only a Register and no Unregister method. Am I thinking\r\n about this all wrong?</p>\r\n",
+    "PostedDate": "2010-12-13T05:46:24.027-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "535057",
+    "ThreadId": "238177",
+    "Html": "\r\n<p>My Messenger class does not support that. &nbsp;It's something I've meant to do for a while now, just haven't gotten around to it. You can either implement it yourself, or use Laurent Bugnion's Messenger from his MVVM Light toolkit.&nbsp;<a href=\"http://mvvmlight.codeplex.com/\">http://mvvmlight.codeplex.com/</a></p>\r\n",
+    "PostedDate": "2010-12-13T08:19:00.783-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]
